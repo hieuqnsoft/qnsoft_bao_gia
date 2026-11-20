@@ -4,34 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ Thống Lập Báo Giá Website - CÔNG TY TNHH CÔNG NGHỆ QNSOFT</title>
-    <!-- Tải Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tải Tailwind CSS v4 Browser Runtime -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Tải Font Inter & Be Vietnam Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Cấu hình thương hiệu QNSOFT -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        qn: {
-                            green: '#4DB982',
-                            greenDark: '#369967',
-                            greenLight: '#EBF8F1',
-                            slate: '#35495E',
-                            slateDark: '#243342',
-                            slateLight: '#F4F7F9'
-                        }
-                    }
-                }
-            }
-        };
-    </script>
+    <!-- Cấu hình thương hiệu QNSOFT chuẩn Tailwind CSS v4 (@theme) -->
+    <style type="text/tailwindcss">
+        @theme {
+            --font-sans: "Be Vietnam Pro", "Inter", sans-serif;
+            --color-qn-green: #4DB982;
+            --color-qn-greenDark: #369967;
+            --color-qn-greenLight: #EBF8F1;
+            --color-qn-slate: #35495E;
+            --color-qn-slateDark: #243342;
+            --color-qn-slateLight: #F4F7F9;
+        }
+    </style>
     <style>
         /* Thanh cuộn tinh gọn */
         ::-webkit-scrollbar {
@@ -198,7 +188,7 @@
                     <span class="hidden sm:inline">Làm mới</span>
                 </button>
 
-                <button type="button" onclick="window.print()" class="px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-qn-green hover:bg-qn-greenDark rounded-xl shadow-md shadow-qn-green/25 transition flex items-center gap-2">
+                <button type="button" onclick="exportPDF()" class="px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-qn-green hover:bg-qn-greenDark rounded-xl shadow-md shadow-qn-green/25 transition flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
                     </svg>
@@ -401,25 +391,25 @@
                         <tr>
                             <td>
                                 <!-- Header công ty QNSOFT -->
-                                <div class="flex flex-col sm:flex-row justify-between items-start gap-4 pb-5 border-b-2 border-slate-200">
-                                    <div class="flex items-start gap-3.5">
-                                        <div class="shrink-0 flex items-center justify-center bg-white border border-slate-200 rounded-2xl p-2 shadow-sm">
+                                <div class="flex flex-col sm:flex-row print:flex-row justify-between items-start gap-3 pb-4 border-b-2 border-slate-200">
+                                    <div class="flex items-start gap-2.5 min-w-0 flex-1">
+                                        <div class="shrink-0 flex items-center justify-center bg-white border border-slate-200 rounded-xl p-1.5 shadow-sm">
                                             <img
                                                 src="https://thietkewebquynhon.com/wp-content/uploads/2022/06/logo-qnsoft.svg"
                                                 alt="Logo QNSOFT"
-                                                class="h-11 w-auto object-contain"
+                                                class="h-8 print:h-7 w-auto object-contain"
                                                 onerror="this.style.display='none'; document.getElementById('a4-logo-fallback').classList.remove('hidden');"
                                             >
-                                            <div id="a4-logo-fallback" class="hidden w-12 h-12 rounded-2xl bg-gradient-to-br from-qn-green to-qn-slate flex flex-col items-center justify-center text-white shadow-sm">
-                                                <span class="font-extrabold text-base tracking-tight leading-none">QN</span>
-                                                <span class="text-[8px] font-semibold tracking-widest opacity-90 mt-0.5">SOFT</span>
+                                            <div id="a4-logo-fallback" class="hidden w-9 h-9 rounded-xl bg-gradient-to-br from-qn-green to-qn-slate flex flex-col items-center justify-center text-white shadow-sm">
+                                                <span class="font-extrabold text-xs tracking-tight leading-none">QN</span>
+                                                <span class="text-[7px] font-semibold tracking-widest opacity-90 mt-0.5">SOFT</span>
                                             </div>
                                         </div>
-                                        <div>
-                                            <h2 id="out-companyName" class="font-extrabold text-qn-slate text-base tracking-tight uppercase">
+                                        <div class="min-w-0">
+                                            <h2 id="out-companyName" class="font-extrabold text-qn-slate text-[13.5px] print:text-[13px] tracking-tight uppercase whitespace-nowrap">
                                                 CÔNG TY TNHH CÔNG NGHỆ QNSOFT
                                             </h2>
-                                            <div class="mt-1 text-[10.5px] text-slate-600 space-y-0.5 leading-snug">
+                                            <div class="mt-1 text-[10px] text-slate-600 space-y-0.5 leading-snug">
                                                 <p><span class="font-semibold text-slate-700">Trụ sở:</span> <span id="out-companyAddress">182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai</span></p>
                                                 <p>
                                                     <span class="font-semibold text-slate-700">MST:</span> <span id="out-companyTax">4101628899</span> &nbsp;|&nbsp;
@@ -432,9 +422,9 @@
                                     </div>
 
                                     <!-- Khối tiêu đề BÁO GIÁ -->
-                                    <div class="sm:text-right shrink-0 bg-qn-slateLight px-4 py-2.5 rounded-xl border border-slate-200/80 w-full sm:w-auto">
-                                        <h1 class="text-xl font-extrabold text-qn-slate tracking-wide uppercase">BẢNG BÁO GIÁ</h1>
-                                        <div class="mt-1 text-[10.5px] text-slate-600 space-y-0.5">
+                                    <div class="sm:text-right print:text-right shrink-0 bg-qn-slateLight px-3.5 py-2 rounded-xl border border-slate-200/80 w-full sm:w-auto print:w-auto">
+                                        <h1 class="text-lg print:text-base font-extrabold text-qn-slate tracking-wide uppercase">BẢNG BÁO GIÁ</h1>
+                                        <div class="mt-0.5 text-[10px] text-slate-600 space-y-0.5">
                                             <p>Số: <span id="out-quoteCode" class="font-bold text-qn-greenDark">BG-2026-001</span></p>
                                             <p>Ngày lập: <span id="out-quoteDate" class="font-medium text-slate-800">20/11/2026</span></p>
                                             <p>Hiệu lực đến: <span id="out-validUntil" class="font-medium text-slate-800">05/12/2026</span></p>
@@ -915,6 +905,33 @@
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;');
+        }
+
+        // Chuyển chuỗi tiếng Việt có dấu sang không dấu và ngăn cách bằng dấu gạch dưới (_)
+        function toSlugUnderscore(str) {
+            return String(str || '')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/Đ/g, 'D')
+                .replace(/[^a-zA-Z0-9]+/g, '_')
+                .replace(/^_+|_+$/g, '');
+        }
+
+        // Xuất PDF với tên file mặc định: QNSOFT_ma_bao_gia_ten_don_vi_khach_hang
+        function exportPDF() {
+            const originalTitle = document.title;
+            const codePart = toSlugUnderscore(quoteState.quoteCode || 'BG_2026');
+            const clientPart = toSlugUnderscore(quoteState.clientName || 'Khach_Hang');
+            const fileName = ['QNSOFT', codePart, clientPart].filter(Boolean).join('_');
+
+            document.title = fileName;
+            window.print();
+
+            // Khôi phục lại tiêu đề trang sau khi đóng hộp thoại in
+            setTimeout(() => {
+                document.title = originalTitle;
+            }, 1000);
         }
 
         // =========================================================================
