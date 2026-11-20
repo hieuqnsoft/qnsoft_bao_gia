@@ -63,12 +63,13 @@
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 14mm;
+                margin: 0mm 14mm;
             }
             html, body {
                 background: #ffffff !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                width: 100% !important;
                 height: auto !important;
                 overflow: visible !important;
                 -webkit-print-color-adjust: exact !important;
@@ -88,14 +89,30 @@
             .a4-paper {
                 width: 100% !important;
                 max-width: 100% !important;
-                min-height: 269mm !important;
+                min-height: auto !important;
                 box-shadow: none !important;
                 border: none !important;
                 padding: 0 !important;
                 margin: 0 !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: space-between !important;
+                display: block !important;
+                overflow: visible !important;
+            }
+            .print-brand-bar {
+                display: none !important;
+            }
+            /* Kỹ thuật tạo lề trên & dưới 14mm lặp lại cho MỌI TRANG (Trang 1, 2, 3...) */
+            .print-layout-table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+            }
+            .print-page-margin {
+                display: table-header-group !important;
+            }
+            .print-page-footer-margin {
+                display: table-footer-group !important;
+            }
+            .print-margin-spacer {
+                height: 14mm !important;
             }
             tr {
                 break-inside: avoid;
@@ -372,172 +389,187 @@
             <div class="a4-paper rounded-xl px-6 py-8 sm:px-10 sm:py-10 flex flex-col justify-between text-slate-800 relative overflow-hidden">
 
                 <!-- Dải màu trang trí thương hiệu QNSOFT trên cùng -->
-                <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-qn-slate via-qn-green to-qn-greenDark"></div>
+                <div class="print-brand-bar absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-qn-slate via-qn-green to-qn-greenDark"></div>
 
-                <div>
-                    <!-- Header công ty QNSOFT -->
-                    <div class="flex flex-col sm:flex-row justify-between items-start gap-4 pb-5 border-b-2 border-slate-200">
-                        <div class="flex items-start gap-3.5">
-                            <!-- Khối Logo chính thức QNSOFT -->
-                            <div class="shrink-0 pt-0.5">
-                                <img
-                                    src="https://thietkewebquynhon.com/wp-content/uploads/2022/06/logo-qnsoft.svg"
-                                    alt="CÔNG TY TNHH CÔNG NGHỆ QNSOFT"
-                                    class="h-12 w-auto max-w-[155px] object-contain"
-                                    onerror="this.style.display='none'; document.getElementById('a4-logo-fallback').classList.remove('hidden');"
-                                >
-                                <div id="a4-logo-fallback" class="hidden w-12 h-12 rounded-2xl bg-gradient-to-br from-qn-green to-qn-slate flex flex-col items-center justify-center text-white shadow-sm">
-                                    <span class="font-extrabold text-base tracking-tight leading-none">QN</span>
-                                    <span class="text-[8px] font-semibold tracking-widest opacity-90 mt-0.5">SOFT</span>
+                <table class="print-layout-table w-full border-collapse">
+                    <!-- Khoảng đệm lề đầu trang lặp lại trên mọi trang khi in PDF -->
+                    <thead class="print-page-margin hidden">
+                        <tr><td><div class="print-margin-spacer"></div></td></tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>
+                                <!-- Header công ty QNSOFT -->
+                                <div class="flex flex-col sm:flex-row justify-between items-start gap-4 pb-5 border-b-2 border-slate-200">
+                                    <div class="flex items-start gap-3.5">
+                                        <div class="shrink-0 flex items-center justify-center bg-white border border-slate-200 rounded-2xl p-2 shadow-sm">
+                                            <img
+                                                src="https://thietkewebquynhon.com/wp-content/uploads/2022/06/logo-qnsoft.svg"
+                                                alt="Logo QNSOFT"
+                                                class="h-11 w-auto object-contain"
+                                                onerror="this.style.display='none'; document.getElementById('a4-logo-fallback').classList.remove('hidden');"
+                                            >
+                                            <div id="a4-logo-fallback" class="hidden w-12 h-12 rounded-2xl bg-gradient-to-br from-qn-green to-qn-slate flex flex-col items-center justify-center text-white shadow-sm">
+                                                <span class="font-extrabold text-base tracking-tight leading-none">QN</span>
+                                                <span class="text-[8px] font-semibold tracking-widest opacity-90 mt-0.5">SOFT</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h2 id="out-companyName" class="font-extrabold text-qn-slate text-base tracking-tight uppercase">
+                                                CÔNG TY TNHH CÔNG NGHỆ QNSOFT
+                                            </h2>
+                                            <div class="mt-1 text-[10.5px] text-slate-600 space-y-0.5 leading-snug">
+                                                <p><span class="font-semibold text-slate-700">Trụ sở:</span> <span id="out-companyAddress">182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai</span></p>
+                                                <p>
+                                                    <span class="font-semibold text-slate-700">MST:</span> <span id="out-companyTax">4101628899</span> &nbsp;|&nbsp;
+                                                    <span class="font-semibold text-slate-700">Hotline:</span> <span id="out-companyPhone">0762 682 682</span>
+                                                </p>
+                                                <p><span class="font-semibold text-slate-700">Liên hệ:</span> <span id="out-companyWeb">contact@qnsoft.vn • www.qnsoft.vn</span></p>
+                                                <p id="out-companyBank-row" class="hidden"><span class="font-semibold text-slate-700">Tài khoản:</span> <span id="out-companyBank"></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Khối tiêu đề BÁO GIÁ -->
+                                    <div class="sm:text-right shrink-0 bg-qn-slateLight px-4 py-2.5 rounded-xl border border-slate-200/80 w-full sm:w-auto">
+                                        <h1 class="text-xl font-extrabold text-qn-slate tracking-wide uppercase">BẢNG BÁO GIÁ</h1>
+                                        <div class="mt-1 text-[10.5px] text-slate-600 space-y-0.5">
+                                            <p>Số: <span id="out-quoteCode" class="font-bold text-qn-greenDark">BG-2026-001</span></p>
+                                            <p>Ngày lập: <span id="out-quoteDate" class="font-medium text-slate-800">20/11/2026</span></p>
+                                            <p>Hiệu lực đến: <span id="out-validUntil" class="font-medium text-slate-800">05/12/2026</span></p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <h2 id="out-companyName" class="font-extrabold text-qn-slate text-base tracking-tight uppercase">
-                                    CÔNG TY TNHH CÔNG NGHỆ QNSOFT
-                                </h2>
-                                <div class="mt-1 text-[10.5px] text-slate-600 space-y-0.5 leading-snug">
-                                    <p><span class="font-semibold text-slate-700">Trụ sở:</span> <span id="out-companyAddress">182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai</span></p>
-                                    <p>
-                                        <span class="font-semibold text-slate-700">MST:</span> <span id="out-companyTax">4101628899</span> &nbsp;|&nbsp;
-                                        <span class="font-semibold text-slate-700">Hotline:</span> <span id="out-companyPhone">0762 682 682</span>
-                                    </p>
-                                    <p><span class="font-semibold text-slate-700">Liên hệ:</span> <span id="out-companyWeb">contact@qnsoft.vn • www.qnsoft.vn</span></p>
-                                    <p id="out-companyBank-row" class="hidden"><span class="font-semibold text-slate-700">Tài khoản:</span> <span id="out-companyBank"></span></p>
+
+                                <!-- Thông tin khách hàng & Dự án -->
+                                <div class="mt-4 grid grid-cols-1 sm:grid-cols-12 gap-3 bg-slate-50/90 p-3.5 rounded-xl border border-slate-200/80 text-[11px]">
+                                    <div class="sm:col-span-7 space-y-1">
+                                        <p class="text-[10px] font-bold uppercase tracking-wider text-qn-greenDark">Kính gửi Quý Khách hàng / Đơn vị</p>
+                                        <p id="out-clientName" class="font-bold text-qn-slate text-sm leading-snug">Công ty TNHH Du Lịch Biển Xanh Quy Nhơn</p>
+                                        <p class="text-slate-600"><span class="font-semibold text-slate-700">Đại diện:</span> <span id="out-clientContact">Anh Nguyễn Văn An - Giám đốc</span></p>
+                                        <p class="text-slate-600">
+                                            <span class="font-semibold text-slate-700">Điện thoại:</span> <span id="out-clientPhone">0905 123 456</span>
+                                            <span id="out-clientEmail-wrap"> &nbsp;•&nbsp; <span class="font-semibold text-slate-700">Email:</span> <span id="out-clientEmail">info@bienxanhquynhon.vn</span></span>
+                                        </p>
+                                        <p id="out-clientAddress-wrap" class="text-slate-600"><span class="font-semibold text-slate-700">Địa chỉ:</span> <span id="out-clientAddress">P. Quy Nhơn, Gia Lai</span></p>
+                                    </div>
+                                    <div class="sm:col-span-5 sm:border-l sm:border-slate-200 sm:pl-4 flex flex-col justify-center space-y-1.5">
+                                        <div>
+                                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Hạng mục triển khai</p>
+                                            <p id="out-projectName" class="font-bold text-qn-slate leading-snug mt-0.5">Thiết kế Website Giới thiệu Doanh nghiệp &amp; Dịch vụ Chuẩn SEO/GEO</p>
+                                        </div>
+                                        <div class="pt-1">
+                                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Thời gian hoàn thành</p>
+                                            <p id="out-timeline" class="font-medium text-slate-700 mt-0.5">12 - 15 ngày làm việc (kể từ ngày duyệt giao diện)</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Khối tiêu đề BÁO GIÁ -->
-                        <div class="sm:text-right shrink-0 bg-qn-slateLight px-4 py-2.5 rounded-xl border border-slate-200/80 w-full sm:w-auto">
-                            <h1 class="text-xl font-extrabold text-qn-slate tracking-wide uppercase">BẢNG BÁO GIÁ</h1>
-                            <div class="mt-1 text-[10.5px] text-slate-600 space-y-0.5">
-                                <p>Số: <span id="out-quoteCode" class="font-bold text-qn-greenDark">BG-2026-001</span></p>
-                                <p>Ngày lập: <span id="out-quoteDate" class="font-medium text-slate-800">20/11/2026</span></p>
-                                <p>Hiệu lực đến: <span id="out-validUntil" class="font-medium text-slate-800">05/12/2026</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Thông tin khách hàng & Dự án -->
-                    <div class="my-4 bg-slate-50/90 rounded-xl p-4 border border-slate-200/80 grid grid-cols-1 sm:grid-cols-12 gap-3 text-[11px]">
-                        <div class="sm:col-span-7 space-y-1">
-                            <p class="text-[10px] font-bold uppercase tracking-wider text-qn-greenDark">Kính gửi Quý Khách hàng / Đơn vị</p>
-                            <p id="out-clientName" class="font-bold text-sm text-qn-slate">Công ty TNHH Du Lịch Biển Xanh Quy Nhơn</p>
-                            <p class="text-slate-600"><span class="font-semibold text-slate-700">Đại diện:</span> <span id="out-clientContact">Anh Nguyễn Văn An - Giám đốc</span></p>
-                            <p class="text-slate-600">
-                                <span class="font-semibold text-slate-700">Điện thoại:</span> <span id="out-clientPhone">0905 123 456</span>
-                                <span id="out-clientEmail-wrap"> &nbsp;•&nbsp; <span class="font-semibold text-slate-700">Email:</span> <span id="out-clientEmail">info@bienxanhquynhon.vn</span></span>
-                            </p>
-                            <p id="out-clientAddress-wrap" class="text-slate-600"><span class="font-semibold text-slate-700">Địa chỉ:</span> <span id="out-clientAddress">P. Quy Nhơn, Gia Lai</span></p>
-                        </div>
-                        <div class="sm:col-span-5 sm:border-l sm:border-slate-200 sm:pl-4 flex flex-col justify-center space-y-1.5">
-                            <div>
-                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Hạng mục triển khai</p>
-                                <p id="out-projectName" class="font-bold text-qn-slate leading-snug mt-0.5">Thiết kế Website Giới thiệu Doanh nghiệp &amp; Dịch vụ Chuẩn SEO/GEO</p>
-                            </div>
-                            <div class="pt-1">
-                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Thời gian hoàn thành</p>
-                                <p id="out-timeline" class="font-medium text-slate-700 mt-0.5">12 - 15 ngày làm việc (kể từ ngày duyệt giao diện)</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bảng chi tiết hạng mục -->
-                    <div class="mt-3 overflow-hidden rounded-xl border border-slate-200">
-                        <table class="w-full text-left border-collapse text-[11px]">
-                            <thead>
-                                <tr class="bg-qn-slate text-white">
-                                    <th class="py-2.5 px-2.5 font-semibold text-center w-10">STT</th>
-                                    <th class="py-2.5 px-3 font-semibold">Nội dung công việc / Hạng mục kỹ thuật</th>
-                                    <th class="py-2.5 px-2 font-semibold text-center w-16">ĐVT</th>
-                                    <th class="py-2.5 px-2 font-semibold text-center w-12">SL</th>
-                                    <th class="py-2.5 px-2.5 font-semibold text-right w-28">Đơn giá (VNĐ)</th>
-                                    <th class="py-2.5 px-3 font-semibold text-right w-28">Thành tiền (VNĐ)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="out-items-tbody" class="divide-y divide-slate-200 bg-white">
-                                <!-- Render bằng JS -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Khối tổng hợp tài chính -->
-                    <div class="keep-together mt-4 flex flex-col sm:flex-row justify-between items-start gap-4">
-                        <!-- Số tiền bằng chữ -->
-                        <div class="w-full sm:w-[56%] bg-qn-greenLight/60 border border-qn-green/30 rounded-xl p-3 text-[11px]">
-                            <p class="font-semibold text-qn-slate">Tổng giá trị thanh toán (bằng chữ):</p>
-                            <p id="out-amountInWords" class="italic font-bold text-qn-greenDark mt-1 leading-relaxed">
-                                Bảy triệu năm trăm nghìn đồng chẵn./.
-                            </p>
-                        </div>
-
-                        <!-- Bảng tính tổng -->
-                        <div class="w-full sm:w-[42%] rounded-xl border border-slate-200 overflow-hidden text-[11px]">
-                            <div class="flex justify-between px-3 py-1.5 bg-slate-50 border-b border-slate-200">
-                                <span class="text-slate-600 font-medium">Cộng tiền hàng:</span>
-                                <span id="out-subtotal" class="font-bold text-slate-800">0 đ</span>
-                            </div>
-                            <div id="out-discount-row" class="flex justify-between px-3 py-1.5 bg-white border-b border-slate-200 text-rose-600">
-                                <span id="out-discount-label" class="font-medium">Ưu đãi / Chiết khấu:</span>
-                                <span id="out-discount" class="font-semibold">- 0 đ</span>
-                            </div>
-                            <div class="flex justify-between px-3 py-1.5 bg-slate-50 border-b border-slate-200">
-                                <span id="out-vat-label" class="text-slate-600 font-medium">Thuế GTGT (0%):</span>
-                                <span id="out-vat" class="font-semibold text-slate-800">0 đ</span>
-                            </div>
-                            <div class="flex justify-between items-center px-3 py-2.5 bg-qn-slate text-white">
-                                <span class="font-bold uppercase text-[10.5px] tracking-wide">Tổng thanh toán:</span>
-                                <span id="out-grandTotal" class="font-extrabold text-sm text-qn-green">0 đ</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Điều khoản thanh toán & Ghi chú -->
-                    <div class="keep-together mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-[10.5px] leading-relaxed">
-                        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
-                            <h3 class="font-bold text-qn-slate uppercase text-[10px] tracking-wider mb-1.5 flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-qn-green"></span>
-                                Tiến độ &amp; Hình thức thanh toán
-                            </h3>
-                            <div id="out-paymentTerms" class="text-slate-600 whitespace-pre-line"></div>
-                        </div>
-                        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
-                            <h3 class="font-bold text-qn-slate uppercase text-[10px] tracking-wider mb-1.5 flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-qn-green"></span>
-                                Chính sách ưu đãi &amp; Bảo hành
-                            </h3>
-                            <div id="out-notes" class="text-slate-600 whitespace-pre-line"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Khu vực ký xác nhận & Chân trang -->
-                <div class="keep-together mt-6 pt-3">
-                    <div class="grid grid-cols-2 gap-6 text-center text-[11px]">
-                        <div>
-                            <p class="font-bold text-qn-slate uppercase">ĐẠI DIỆN KHÁCH HÀNG</p>
-                            <p class="text-[10px] text-slate-400 italic mt-0.5">(Ký, ghi rõ họ tên &amp; đóng dấu nếu có)</p>
-                            <div class="h-16"></div>
-                            <p class="font-semibold text-slate-600">Xác nhận đồng ý triển khai</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-qn-slate uppercase">ĐẠI DIỆN QNSOFT</p>
-                            <p class="text-[10px] text-slate-400 italic mt-0.5">(Lập báo giá &amp; Tư vấn giải pháp)</p>
-                            <div class="h-16 flex items-center justify-center">
-                                <div class="border-2 border-qn-green/40 text-qn-greenDark/70 rounded-lg px-3 py-1 text-[9.5px] font-extrabold uppercase tracking-wider -rotate-3 select-none">
-                                    QNSOFT VERIFIED QUOTE
+                                <!-- Bảng chi tiết hạng mục -->
+                                <div class="mt-4 rounded-xl border border-slate-200 overflow-hidden">
+                                    <table class="w-full text-left border-collapse text-[11px]">
+                                        <thead>
+                                            <tr class="bg-qn-slate text-white">
+                                                <th class="py-2.5 px-2.5 font-semibold text-center w-10">STT</th>
+                                                <th class="py-2.5 px-3 font-semibold">Nội dung hạng mục &amp; Mô tả chi tiết</th>
+                                                <th class="py-2.5 px-2 font-semibold text-center w-14">ĐVT</th>
+                                                <th class="py-2.5 px-2 font-semibold text-center w-12">SL</th>
+                                                <th class="py-2.5 px-2.5 font-semibold text-right w-28">Đơn giá (VNĐ)</th>
+                                                <th class="py-2.5 px-3 font-semibold text-right w-28">Thành tiền (VNĐ)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="out-items-tbody" class="divide-y divide-slate-200 bg-white">
+                                            <!-- Render bằng JS -->
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
-                            <p id="out-staffName" class="font-bold text-qn-slate">Chuyên viên tư vấn: Nguyễn Đình Hiếu</p>
-                        </div>
-                    </div>
 
-                    <!-- Chân trang A4 -->
-                    <div class="mt-5 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[9.5px] text-slate-400">
-                        <span id="out-footer-address">CÔNG TY TNHH CÔNG NGHỆ QNSOFT • 182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai</span>
-                        <span id="out-footer-contact">Website: qnsoft.vn • Hotline: 0762 682 682</span>
-                    </div>
-                </div>
+                                <!-- Khối tổng hợp tài chính -->
+                                <div class="keep-together mt-4 flex flex-col sm:flex-row justify-between items-start gap-4">
+                                    <!-- Số tiền bằng chữ -->
+                                    <div class="w-full sm:w-[56%] bg-qn-greenLight/60 border border-qn-green/30 rounded-xl p-3 text-[11px]">
+                                        <p class="font-semibold text-qn-slate">Tổng giá trị thanh toán (bằng chữ):</p>
+                                        <p id="out-amountInWords" class="italic font-bold text-qn-greenDark mt-1 leading-relaxed">
+                                            Bảy triệu năm trăm nghìn đồng chẵn./.
+                                        </p>
+                                    </div>
+
+                                    <!-- Bảng tính tổng -->
+                                    <div class="w-full sm:w-[42%] rounded-xl border border-slate-200 overflow-hidden text-[11px]">
+                                        <div class="flex justify-between px-3 py-1.5 bg-slate-50 border-b border-slate-200">
+                                            <span class="text-slate-600 font-medium">Cộng tiền hàng:</span>
+                                            <span id="out-subtotal" class="font-bold text-slate-800">0 đ</span>
+                                        </div>
+                                        <div id="out-discount-row" class="flex justify-between px-3 py-1.5 bg-white border-b border-slate-200 text-rose-600">
+                                            <span id="out-discount-label" class="font-medium">Ưu đãi / Chiết khấu:</span>
+                                            <span id="out-discount" class="font-semibold">- 0 đ</span>
+                                        </div>
+                                        <div class="flex justify-between px-3 py-1.5 bg-slate-50 border-b border-slate-200">
+                                            <span id="out-vat-label" class="text-slate-600 font-medium">Thuế GTGT (0%):</span>
+                                            <span id="out-vat" class="font-semibold text-slate-800">0 đ</span>
+                                        </div>
+                                        <div class="flex justify-between items-center px-3 py-2.5 bg-qn-slate text-white">
+                                            <span class="font-bold uppercase text-[10.5px] tracking-wide">Tổng thanh toán:</span>
+                                            <span id="out-grandTotal" class="font-extrabold text-sm text-qn-green">0 đ</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Điều khoản thanh toán & Ghi chú -->
+                                <div class="keep-together mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-[10.5px] leading-relaxed">
+                                    <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                                        <h3 class="font-bold text-qn-slate uppercase text-[10px] tracking-wider mb-1.5 flex items-center gap-1.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-qn-slate"></span>
+                                            Phương thức &amp; Tiến độ thanh toán
+                                        </h3>
+                                        <div id="out-paymentTerms" class="text-slate-600 whitespace-pre-line"></div>
+                                    </div>
+                                    <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                                        <h3 class="font-bold text-qn-slate uppercase text-[10px] tracking-wider mb-1.5 flex items-center gap-1.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-qn-green"></span>
+                                            Chính sách ưu đãi &amp; Bảo hành
+                                        </h3>
+                                        <div id="out-notes" class="text-slate-600 whitespace-pre-line"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Khu vực ký xác nhận & Chân trang -->
+                                <div class="keep-together mt-6 pt-3">
+                                    <div class="grid grid-cols-2 gap-6 text-center text-[11px]">
+                                        <div>
+                                            <p class="font-bold text-qn-slate uppercase">XÁC NHẬN CỦA KHÁCH HÀNG</p>
+                                            <p class="text-[10px] text-slate-400 italic mt-0.5">(Ký, ghi rõ họ tên &amp; đóng dấu)</p>
+                                            <div class="h-16"></div>
+                                            <p class="text-slate-400 text-[10.5px]">......................................................</p>
+                                        </div>
+                                        <div>
+                                            <p class="font-bold text-qn-slate uppercase">ĐẠI DIỆN QNSOFT</p>
+                                            <p class="text-[10px] text-slate-400 italic mt-0.5">(Lập báo giá &amp; Tư vấn giải pháp)</p>
+                                            <div class="h-16 flex items-center justify-center">
+                                                <div class="border-2 border-qn-green/40 text-qn-greenDark/70 rounded-lg px-3 py-1 text-[9.5px] font-extrabold uppercase tracking-wider -rotate-3 select-none">
+                                                    QNSOFT VERIFIED QUOTE
+                                                </div>
+                                            </div>
+                                            <p id="out-staffName" class="font-bold text-qn-slate whitespace-nowrap">Chuyên viên tư vấn: Nguyễn Đình Hiếu</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Chân trang A4 -->
+                                    <div class="mt-5 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[9.5px] text-slate-400">
+                                        <span id="out-footer-address">CÔNG TY TNHH CÔNG NGHỆ QNSOFT • 182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai</span>
+                                        <span id="out-footer-contact">Website: qnsoft.vn • Hotline: 0762 682 682</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <!-- Khoảng đệm lề cuối trang lặp lại trên mọi trang khi in PDF -->
+                    <tfoot class="print-page-footer-margin hidden">
+                        <tr><td><div class="print-margin-spacer"></div></td></tr>
+                    </tfoot>
+                </table>
 
             </div>
         </section>
