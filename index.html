@@ -414,7 +414,7 @@
                                                     <span class="font-semibold text-slate-700">MST:</span> <span id="out-companyTax">4101597485</span> &nbsp;|&nbsp;
                                                     <span class="font-semibold text-slate-700">Hotline:</span> <span id="out-companyPhone">0762 682 682</span>
                                                 </p>
-                                                <p><span class="font-semibold text-slate-700">Liên hệ:</span> <span id="out-companyWeb">contact@qnsoft.vn • www.qnsoft.vn</span></p>
+                                                <p><span class="font-semibold text-slate-700">Liên hệ:</span> <span id="out-companyWeb">info@qnsoft.vn • www.qnsoft.vn</span></p>
                                                 <p id="out-companyBank-row" class="hidden"><span class="font-semibold text-slate-700">Tài khoản:</span> <span id="out-companyBank"></span></p>
                                             </div>
                                         </div>
@@ -569,15 +569,15 @@
         // =========================================================================
         // 1. KHỞI TẠO DỮ LIỆU MẶC ĐỊNH & CÁC GÓI MẪU NHANH CỦA QNSOFT
         // =========================================================================
-        const STORAGE_KEY = 'qnsoft_quote_data_v4';
-        const OLD_STORAGE_KEYS = ['qnsoft_quote_data_v1', 'qnsoft_quote_data_v2', 'qnsoft_quote_data_v3'];
+        const STORAGE_KEY = 'qnsoft_quote_data_v5';
+        const OLD_STORAGE_KEYS = ['qnsoft_quote_data_v1', 'qnsoft_quote_data_v2', 'qnsoft_quote_data_v3', 'qnsoft_quote_data_v4'];
 
         const DEFAULT_COMPANY_INFO = {
             companyName: 'CÔNG TY TNHH CÔNG NGHỆ QNSOFT',
             companyAddress: '182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai',
             companyTax: '4101597485',
             companyPhone: '0762 682 682',
-            companyWeb: 'contact@qnsoft.vn • www.qnsoft.vn',
+            companyWeb: 'info@qnsoft.vn • www.qnsoft.vn',
             companyBank: '',
             staffName: 'Chuyên viên tư vấn: Nguyễn Đình Hiếu'
         };
@@ -605,8 +605,8 @@
                 discountType: 'amount',
                 discountValue: 1000000,
                 vatRate: 0,
-                paymentTerms: '• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết.\n• Đợt 2: Thanh toán 50% còn lại sau khi nghiệm thu, bàn giao toàn bộ source code & tài khoản quản trị.',
-                notes: '• Tặng gói nhập liệu chuẩn SEO ban đầu lên đến 15 bài viết / dịch vụ.\n• Tặng gói đào tạo & hướng dẫn quản trị, vận hành Website 1-1 từ xa qua UltraView kèm tài liệu HDSD chi tiết.\n• Hỗ trợ khởi tạo & xác minh Google Business Profile (Google Maps) miễn phí.\n• Bảo hành kỹ thuật trọn đời khi sử dụng hạ tầng tại QNSOFT.',
+                paymentTerms: '• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết.\n• Đợt 2: Thanh toán 50% giá trị còn lại sau khi nghiệm thu, bàn giao toàn bộ source code & tài khoản quản trị.',
+                notes: '• Bảo hành kỹ thuật trọn đời: Miễn phí sửa lỗi mã nguồn, bảo trì hệ thống & hỗ trợ kỹ thuật 24/7 trong suốt quá trình sử dụng.\n• Tặng gói nhập liệu chuẩn SEO ban đầu lên đến 15 bài viết / dịch vụ.\n• Tặng gói đào tạo & hướng dẫn quản trị, vận hành Website 1-1 từ xa qua UltraView kèm tài liệu HDSD chi tiết.\n• Hỗ trợ khởi tạo & xác minh Google Business Profile (Google Maps) miễn phí.',
                 items: [
                     {
                         id: 'item-1',
@@ -618,8 +618,8 @@
                     },
                     {
                         id: 'item-2',
-                        name: 'Lập trình hệ thống CMS quản trị nội dung & Module chức năng',
-                        desc: 'Trang chủ, Giới thiệu, Dịch vụ/Sản phẩm, Dự án tiêu biểu, Tin tức chuẩn SEO, Tuyển dụng, Form nhận báo giá & kết nối Zalo/Hotline.',
+                        name: 'Lập trình hệ thống CMS quản trị nội dung & Các module chức năng cơ bản',
+                        desc: '• Quản lý bài viết & chuyên mục: Phân cấp danh mục đa tầng, trình soạn thảo trực quan (WYSIWYG), hẹn giờ xuất bản, gắn thẻ (Tags) & bài viết liên quan.\n• Quản lý Trang nội dung (Pages): Tự tạo và chỉnh sửa linh hoạt các trang Giới thiệu, Tầm nhìn sứ mệnh, Hồ sơ năng lực, Liên hệ (tích hợp bản đồ Google Maps & Form nhận tư vấn).\n• Quản lý Thư viện Media & Menu: Upload hình ảnh, tài liệu PDF, quản lý Banner/Slider trang chủ, tùy biến thanh điều hướng (Menu) & chân trang (Footer) dễ dàng.',
                         unit: 'Gói',
                         qty: 1,
                         price: 3000000
@@ -648,8 +648,8 @@
                 discountType: 'amount',
                 discountValue: 500000,
                 vatRate: 0,
-                paymentTerms: '• Đợt 1: Tạm ứng 50% khi chốt bố cục nội dung & ký xác nhận.\n• Đợt 2: Thanh toán 50% khi bàn giao Landing Page hoàn chỉnh.',
-                notes: '• Tối ưu tốc độ tải trang dưới 1.5 giây phục vụ chạy quảng cáo Google Ads / Facebook Ads / TikTok Ads.\n• Hỗ trợ gắn Pixel Facebook, Google Tag Manager & Google Analytics 4 miễn phí.\n• Hướng dẫn quản trị & chỉnh sửa nội dung, hình ảnh trực quan từ xa qua UltraView.',
+                paymentTerms: '• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết.\n• Đợt 2: Thanh toán 50% giá trị còn lại sau khi nghiệm thu & bàn giao Landing Page hoàn chỉnh.',
+                notes: '• Bảo hành kỹ thuật trọn đời: Miễn phí khắc phục sự cố kỹ thuật & hỗ trợ vận hành suốt quá trình sử dụng.\n• Tối ưu tốc độ tải trang dưới 1.5 giây phục vụ chạy quảng cáo Google Ads / Facebook Ads / TikTok Ads.\n• Hỗ trợ gắn Pixel Facebook, Google Tag Manager & Google Analytics 4 miễn phí.\n• Hướng dẫn quản trị & chỉnh sửa nội dung, hình ảnh trực quan từ xa qua UltraView.',
                 items: [
                     {
                         id: 'item-l1',
@@ -683,8 +683,8 @@
                 discountType: 'amount',
                 discountValue: 1500000,
                 vatRate: 0,
-                paymentTerms: '• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết.\n• Đợt 2: Thanh toán 30% sau khi hoàn thiện giao diện & chức năng giỏ hàng.\n• Đợt 3: Thanh toán 20% còn lại khi nghiệm thu & bàn giao.',
-                notes: '• Hỗ trợ nhập liệu mẫu 30 sản phẩm chuẩn SEO đầu tiên.\n• Tích hợp thanh toán chuyển khoản quét mã VietQR tự động điền số tiền & nội dung đơn hàng.\n• Tặng gói đào tạo quản lý đơn hàng, tồn kho & mã giảm giá trực tiếp 1-1 qua UltraView.\n• Bảo hành kỹ thuật & nâng cấp bảo mật miễn phí 12 tháng.',
+                paymentTerms: '• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết.\n• Đợt 2: Thanh toán 50% giá trị còn lại sau khi nghiệm thu & bàn giao hệ thống.',
+                notes: '• Bảo hành kỹ thuật trọn đời: Cam kết sửa lỗi mã nguồn, nâng cấp vá lỗi bảo mật & hỗ trợ kỹ thuật miễn phí trọn đời.\n• Hỗ trợ nhập liệu mẫu 30 sản phẩm chuẩn SEO đầu tiên.\n• Tích hợp thanh toán chuyển khoản quét mã VietQR tự động điền số tiền & nội dung đơn hàng.\n• Tặng gói đào tạo quản lý đơn hàng, tồn kho & mã giảm giá trực tiếp 1-1 qua UltraView.',
                 items: [
                     {
                         id: 'item-e1',
@@ -696,8 +696,8 @@
                     },
                     {
                         id: 'item-e2',
-                        name: 'Lập trình Giỏ hàng, Thanh toán VietQR & Quản lý đơn hàng',
-                        desc: 'Đặt hàng nhanh không cần đăng ký, mã giảm giá/Voucher, tính phí vận chuyển theo khu vực & tự động tạo mã QR thanh toán.',
+                        name: 'Lập trình hệ thống CMS bán hàng: Sản phẩm, Danh mục, Giỏ hàng & Đơn hàng',
+                        desc: '• Quản lý Sản phẩm & Danh mục: Phân loại đa cấp, quản lý biến thể (màu sắc, kích thước), giá khuyến mãi, tình trạng tồn kho.\n• Quản lý Trang & Tin tức: Trang Giới thiệu, Chính sách bảo hành/đổi trả, Hướng dẫn mua hàng, Tin tức khuyến mãi chuẩn SEO.\n• Giỏ hàng & Thanh toán: Đặt hàng nhanh không cần đăng ký, mã giảm giá/Voucher & tự động tạo mã VietQR thanh toán.',
                         unit: 'Gói',
                         qty: 1,
                         price: 4500000
@@ -728,48 +728,48 @@
                 discountType: 'amount',
                 discountValue: 3000000,
                 vatRate: 0,
-                paymentTerms: '• Đợt 1: Tạm ứng 40% giá trị hợp đồng ngay sau khi ký kết hợp đồng triển khai.\n• Đợt 2: Thanh toán 30% sau khi hoàn thiện giao diện, cấu trúc phân hệ & chạy thử nghiệm trên môi trường Staging.\n• Đợt 3: Thanh toán 30% còn lại sau khi nghiệm thu, bàn giao tài liệu hướng dẫn & vận hành chính thức.',
-                notes: '• Bàn giao đầy đủ Bộ tài liệu hướng dẫn quản trị hệ thống & quy trình biên tập tin bài (PDF/Video).\n• Tổ chức đào tạo, hướng dẫn quản trị từ xa qua UltraView (hoặc trực tiếp tại đơn vị) cho cán bộ quản trị & đội ngũ biên tập viên các khoa/phòng ban.\n• Hỗ trợ chuyển đổi dữ liệu tin tức, văn bản cũ sang hệ thống mới.\n• Bảo hành kỹ thuật, vá lỗi bảo mật & hỗ trợ vận hành 24/7 trong 12 - 24 tháng.',
+                paymentTerms: '• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết hợp đồng triển khai.\n• Đợt 2: Thanh toán 50% giá trị còn lại sau khi nghiệm thu, bàn giao tài liệu hướng dẫn & vận hành chính thức.',
+                notes: '• Bảo hành kỹ thuật trọn đời: Miễn phí khắc phục lỗi hệ thống, cập nhật vá lỗi an toàn thông tin & hỗ trợ vận hành 24/7 trọn đời.\n• Bàn giao đầy đủ Bộ tài liệu hướng dẫn quản trị hệ thống & quy trình biên tập tin bài (PDF/Video).\n• Tổ chức đào tạo, hướng dẫn quản trị từ xa qua UltraView (hoặc trực tiếp tại đơn vị) cho cán bộ quản trị & đội ngũ biên tập viên các khoa/phòng ban.\n• Hỗ trợ chuyển đổi dữ liệu tin tức, văn bản cũ sang hệ thống mới.',
                 items: [
                     {
                         id: 'item-p1',
                         name: 'Thiết kế giao diện Cổng TTĐT chuẩn mực, trang trọng & thân thiện người dân',
-                        desc: 'Bố cục khoa học theo quy chuẩn Cổng thông tin điện tử (Nghị định 42/2022/NĐ-CP), hỗ trợ giao diện tương phản cao, tăng giảm cỡ chữ & tương thích mọi thiết bị.',
+                        desc: 'Bố cục khoa học theo quy chuẩn Cổng thông tin điện tử (Nghị định 42/2022/NĐ-CP), hỗ trợ giao diện tương phản cao, tăng giảm cỡ chữ & tương thích mọi thiết bị (PC, Tablet, Mobile).',
                         unit: 'Gói',
                         qty: 1,
                         price: 8500000
                     },
                     {
                         id: 'item-p2',
-                        name: 'Phân hệ Quản lý Văn bản, Thủ tục Hành chính & Quy trình Khám chữa bệnh',
-                        desc: 'Hệ thống lưu trữ, tra cứu nâng cao (theo số ký hiệu, cơ quan ban hành, lĩnh vực, ngày ban hành), đính kèm tệp PDF/DOCX & xem trực tuyến không cần tải về.',
+                        name: 'Hệ thống CMS cơ bản: Quản lý Tin tức, Chuyên mục, Trang Giới thiệu & Liên hệ',
+                        desc: '• Quản lý Bài viết & Chuyên mục: Phân cấp chuyên mục tin tức hoạt động, thông báo, y học thường thức; trình soạn thảo trực quan, hẹn giờ đăng bài & tin nổi bật.\n• Quản lý Trang Giới thiệu & Cơ cấu tổ chức: Giới thiệu lịch sử hình thành, chức năng nhiệm vụ, sơ đồ tổ chức, ban lãnh đạo & danh sách các Khoa / Phòng ban chuyên môn.\n• Quản lý Liên hệ & Chỉ đường: Tích hợp bản đồ chỉ đường trực quan, danh bạ đường dây nóng các khoa/phòng & biểu mẫu gửi thư liên hệ trực tuyến.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 6000000
+                    },
+                    {
+                        id: 'item-p3',
+                        name: 'Phân hệ Quản lý Văn bản, Thủ tục Hành chính & Lịch trực chuyên môn',
+                        desc: '• Quản lý Văn bản & Công báo: Lưu trữ, phân loại theo số ký hiệu, cơ quan ban hành, lĩnh vực, ngày ban hành; hỗ trợ xem trực tiếp tệp PDF/DOCX trên trình duyệt & tải về.\n• Quản lý Lịch trực & Lịch công tác: Cập nhật nhanh lịch trực lãnh đạo, lịch trực cấp cứu/chuyên khoa theo tuần/tháng (hỗ trợ nhập từ Excel hoặc bảng biểu trực quan).\n• Quy trình khám chữa bệnh & Bảng giá dịch vụ: Tra cứu quy trình tiếp đón, bảo hiểm y tế & bảng giá dịch vụ kỹ thuật công khai.',
                         unit: 'Phân hệ',
                         qty: 1,
                         price: 7500000
                     },
                     {
-                        id: 'item-p3',
-                        name: 'Phân hệ Tương tác trực tuyến: Đặt lịch khám / Hỏi đáp & Phản ánh kiến nghị',
-                        desc: 'Cổng đăng ký khám bệnh trực tuyến theo chuyên khoa/bác sĩ (hoặc tiếp nhận phản ánh kiến nghị của người dân), tra cứu trạng thái xử lý & thông báo qua Email/Zalo.',
+                        id: 'item-p4',
+                        name: 'Phân hệ Thư viện Video, Hình ảnh hoạt động & Tương tác trực tuyến',
+                        desc: '• Thư viện Hình ảnh & Video: Quản lý album ảnh sự kiện, phóng sự y tế/hoạt động cơ quan, nhúng video YouTube hoặc tải video trực tiếp với trình phát mượt mà.\n• Đặt lịch khám / Phản ánh kiến nghị: Cổng đăng ký khám bệnh trực tuyến theo chuyên khoa/bác sĩ (hoặc tiếp nhận phản ánh kiến nghị của người dân), tra cứu trạng thái xử lý & thông báo qua Email/Zalo.',
                         unit: 'Phân hệ',
                         qty: 1,
                         price: 6500000
                     },
                     {
-                        id: 'item-p4',
-                        name: 'Hệ thống quản trị CMS phân quyền đa cấp & Quy trình kiểm duyệt tin bài',
-                        desc: 'Phân quyền chi tiết theo từng Khoa/Phòng ban (Phóng viên -> Biên tập viên -> Trưởng ban duyệt tin -> Xuất bản), lưu lịch sử chỉnh sửa & nhật ký thao tác hệ thống (Audit Log).',
+                        id: 'item-p5',
+                        name: 'Phân quyền biên tập đa cấp, Bảo mật nâng cao (WAF) & Sao lưu dự phòng',
+                        desc: '• Phân quyền kiểm duyệt nhiều cấp: Phân quyền chi tiết theo từng Khoa/Phòng ban (Phóng viên -> Biên tập viên -> Trưởng ban duyệt tin -> Xuất bản), lưu lịch sử chỉnh sửa (Audit Log).\n• Bảo mật WAF & Hạ tầng: Tường lửa chống SQL Injection/XSS, mã hóa SSL chuẩn quốc tế, sao lưu dữ liệu tự động hàng ngày & kiểm thử an toàn thông tin trước bàn giao.',
                         unit: 'Gói',
                         qty: 1,
                         price: 5500000
-                    },
-                    {
-                        id: 'item-p5',
-                        name: 'Giải pháp Bảo mật nâng cao (WAF), Chống tấn công DDoS & Sao lưu dự phòng',
-                        desc: 'Tường lửa ứng dụng web chống SQL Injection/XSS, mã hóa SSL chuẩn quốc tế, cơ chế sao lưu dữ liệu tự động định kỳ hàng ngày & kiểm thử an toàn thông tin trước bàn giao.',
-                        unit: 'Gói',
-                        qty: 1,
-                        price: 4000000
                     },
                     {
                         id: 'item-p6',
