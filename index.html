@@ -63,7 +63,7 @@
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 0mm;
+                margin: 14mm;
             }
             html, body {
                 background: #ffffff !important;
@@ -88,11 +88,14 @@
             .a4-paper {
                 width: 100% !important;
                 max-width: 100% !important;
-                min-height: auto !important;
+                min-height: 269mm !important;
                 box-shadow: none !important;
                 border: none !important;
-                padding: 12mm 14mm !important;
+                padding: 0 !important;
                 margin: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
             }
             tr {
                 break-inside: avoid;
@@ -366,7 +369,7 @@
 
         <!-- CỘT PHẢI: BẢN XEM TRƯỚC CHUẨN IN ẤN A4 -->
         <section id="preview-wrapper" class="hidden lg:flex w-full lg:w-[56%] xl:w-[58%] p-4 sm:p-8 justify-center items-start bg-slate-200/70 lg:h-[calc(100vh-65px)] lg:overflow-y-auto">
-            <div class="a4-paper rounded-xl p-6 sm:p-10 flex flex-col justify-between text-slate-800 relative overflow-hidden">
+            <div class="a4-paper rounded-xl px-6 py-8 sm:px-10 sm:py-10 flex flex-col justify-between text-slate-800 relative overflow-hidden">
 
                 <!-- Dải màu trang trí thương hiệu QNSOFT trên cùng -->
                 <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-qn-slate via-qn-green to-qn-greenDark"></div>
@@ -530,7 +533,7 @@
                     </div>
 
                     <!-- Chân trang A4 -->
-                    <div class="mt-4 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[9.5px] text-slate-400">
+                    <div class="mt-5 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[9.5px] text-slate-400">
                         <span id="out-footer-address">CÔNG TY TNHH CÔNG NGHỆ QNSOFT • 182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai</span>
                         <span id="out-footer-contact">Website: qnsoft.vn • Hotline: 0762 682 682</span>
                     </div>
