@@ -1,1508 +1,985 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ Thống Lập Báo Giá Website - CÔNG TY TNHH CÔNG NGHỆ QNSOFT</title>
     <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Tải Font Inter & Be Vietnam Pro -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Cấu hình thương hiệu QNSOFT -->
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['"Be Vietnam Pro"', "Inter", "sans-serif"],
-            },
-            colors: {
-              qn: {
-                green: "#4DB982",
-                greenDark: "#369967",
-                greenLight: "#EBF8F1",
-                slate: "#35495E",
-                slateDark: "#243342",
-                slateLight: "#F4F7F9",
-              },
-            },
-          },
-        },
-      };
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        qn: {
+                            green: '#4DB982',
+                            greenDark: '#369967',
+                            greenLight: '#EBF8F1',
+                            slate: '#35495E',
+                            slateDark: '#243342',
+                            slateLight: '#F4F7F9'
+                        }
+                    }
+                }
+            }
+        };
     </script>
     <style>
-      /* Thanh cuộn tinh gọn */
-      ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f1f5f9;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 9999px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
+        /* Thanh cuộn tinh gọn */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
 
-      /* Hiệu ứng tờ giấy A4 trên màn hình */
-      .a4-paper {
-        width: 100%;
-        max-width: 210mm;
-        min-height: 297mm;
-        background: #ffffff;
-        box-shadow:
-          0 20px 25px -5px rgba(15, 23, 42, 0.1),
-          0 8px 10px -6px rgba(15, 23, 42, 0.06);
-        border: 1px solid #e2e8f0;
-      }
-
-      /* Tối ưu hóa in ấn chuẩn khổ A4 */
-      @media print {
-        @page {
-          size: A4 portrait;
-          margin: 10mm 12mm;
-        }
-        html,
-        body {
-          background: #ffffff !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          height: auto !important;
-          overflow: visible !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-        }
-        .no-print {
-          display: none !important;
-        }
-        #preview-wrapper {
-          display: block !important;
-          width: 100% !important;
-          padding: 0 !important;
-          margin: 0 !important;
-          background: transparent !important;
-          overflow: visible !important;
-        }
+        /* Hiệu ứng tờ giấy A4 trên màn hình */
         .a4-paper {
-          width: 100% !important;
-          max-width: 100% !important;
-          min-height: auto !important;
-          box-shadow: none !important;
-          border: none !important;
-          padding: 0 !important;
-          margin: 0 !important;
+            width: 100%;
+            max-width: 210mm;
+            min-height: 297mm;
+            background: #ffffff;
+            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
+            border: 1px solid #e2e8f0;
         }
-        tr {
-          break-inside: avoid;
-          page-break-inside: avoid;
+
+        /* Tối ưu hóa in ấn chuẩn khổ A4 */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0mm;
+            }
+            html, body {
+                background: #ffffff !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                height: auto !important;
+                overflow: visible !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #preview-wrapper {
+                display: block !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: transparent !important;
+                overflow: visible !important;
+            }
+            .a4-paper {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-height: auto !important;
+                box-shadow: none !important;
+                border: none !important;
+                padding: 12mm 14mm !important;
+                margin: 0 !important;
+            }
+            tr {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .keep-together {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
         }
-        .keep-together {
-          break-inside: avoid;
-          page-break-inside: avoid;
-        }
-      }
     </style>
-  </head>
-  <body
-    class="bg-slate-100 text-slate-800 antialiased selection:bg-qn-green/20 selection:text-qn-slateDark"
-  >
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased selection:bg-qn-green/20 selection:text-qn-slateDark">
+
     <!-- Thông báo Toast mượt mà -->
-    <div
-      id="toast"
-      class="no-print fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none"
-    >
-      <div
-        class="bg-qn-slateDark text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-slate-700"
-      >
-        <span class="w-2.5 h-2.5 rounded-full bg-qn-green animate-pulse"></span>
-        <span id="toast-message" class="text-sm font-medium"
-          >Đã lưu thay đổi</span
-        >
-      </div>
+    <div id="toast" class="no-print fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-qn-slateDark text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-slate-700">
+            <span class="w-2.5 h-2.5 rounded-full bg-qn-green animate-pulse"></span>
+            <span id="toast-message" class="text-sm font-medium">Đã lưu thay đổi</span>
+        </div>
     </div>
 
     <!-- Thanh công cụ trên cùng -->
-    <header
-      class="no-print sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-3 shadow-sm"
-    >
-      <div
-        class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3"
-      >
-        <!-- Thương hiệu QNSOFT -->
-        <div class="flex items-center gap-3">
-          <div
-            class="flex items-center justify-center bg-white border border-slate-200/80 rounded-xl px-2.5 py-1.5 shadow-sm"
-          >
-            <img
-              src="https://thietkewebquynhon.com/wp-content/uploads/2022/06/logo-qnsoft.svg"
-              alt="Logo QNSOFT"
-              class="h-8 w-auto object-contain"
-              onerror="
-                this.style.display = 'none';
-                document
-                  .getElementById('header-logo-fallback')
-                  .classList.remove('hidden');
-              "
-            />
-            <div
-              id="header-logo-fallback"
-              class="hidden w-8 h-8 rounded-lg bg-gradient-to-br from-qn-green to-qn-slate flex items-center justify-center text-white font-extrabold text-sm"
-            >
-              QN
+    <header class="no-print sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-3 shadow-sm">
+        <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3">
+            <!-- Thương hiệu QNSOFT -->
+            <div class="flex items-center gap-3">
+                <div class="flex items-center justify-center bg-white border border-slate-200/80 rounded-xl px-2.5 py-1.5 shadow-sm">
+                    <img
+                        src="https://thietkewebquynhon.com/wp-content/uploads/2022/06/logo-qnsoft.svg"
+                        alt="Logo QNSOFT"
+                        class="h-8 w-auto object-contain"
+                        onerror="this.style.display='none'; document.getElementById('header-logo-fallback').classList.remove('hidden');"
+                    >
+                    <div id="header-logo-fallback" class="hidden w-8 h-8 rounded-lg bg-gradient-to-br from-qn-green to-qn-slate flex items-center justify-center text-white font-extrabold text-sm">
+                        QN
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-bold text-qn-slate text-base sm:text-lg leading-tight">QNSOFT QUOTE</h1>
+                        <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-qn-greenLight text-qn-greenDark">
+                            Báo Giá Website
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-500 hidden md:block">Trình tạo báo giá thiết kế website &amp; giải pháp số chuẩn in ấn A4</p>
+                </div>
             </div>
-          </div>
+
+            <!-- Chọn nhanh gói mẫu -->
+            <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200/80 overflow-x-auto max-w-full">
+                <span class="text-[11px] font-semibold text-slate-500 px-2 hidden xl:inline">Gói mẫu:</span>
+                <button type="button" onclick="applyPreset('corporate')" class="px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-white hover:text-qn-greenDark hover:shadow-sm transition whitespace-nowrap">
+                    Doanh nghiệp
+                </button>
+                <button type="button" onclick="applyPreset('landing')" class="px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-white hover:text-qn-greenDark hover:shadow-sm transition whitespace-nowrap">
+                    Landing Page
+                </button>
+                <button type="button" onclick="applyPreset('ecommerce')" class="px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-white hover:text-qn-greenDark hover:shadow-sm transition whitespace-nowrap">
+                    Bán hàng / TMĐT
+                </button>
+                <button type="button" onclick="applyPreset('portal')" class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-white text-qn-slate shadow-sm border border-qn-green/30 hover:bg-qn-greenLight hover:text-qn-greenDark transition whitespace-nowrap">
+                    Cổng TTĐT (Bệnh viện / CQNN)
+                </button>
+            </div>
+
+            <!-- Nút hành động -->
+            <div class="flex items-center gap-2">
+                <!-- Nút chuyển tab trên Mobile -->
+                <div class="flex lg:hidden bg-slate-100 p-1 rounded-xl border border-slate-200">
+                    <button type="button" id="btn-tab-editor" onclick="switchMobileTab('editor')" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white text-qn-slate shadow-sm">
+                        Soạn thảo
+                    </button>
+                    <button type="button" id="btn-tab-preview" onclick="switchMobileTab('preview')" class="px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-600">
+                        Xem A4
+                    </button>
+                </div>
+
+                <button type="button" onclick="resetToDefault()" title="Khôi phục mặc định" class="p-2.5 sm:px-3 sm:py-2 text-xs font-medium text-slate-600 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    <span class="hidden sm:inline">Làm mới</span>
+                </button>
+
+                <button type="button" onclick="window.print()" class="px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-qn-green hover:bg-qn-greenDark rounded-xl shadow-md shadow-qn-green/25 transition flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                    </svg>
+                    <span>In / Xuất PDF</span>
+                </button>
+            </div>
         </div>
-
-        <!-- Chọn nhanh gói mẫu -->
-        <div
-          class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200/80 overflow-x-auto max-w-full"
-        >
-          <span
-            class="text-[11px] font-semibold text-slate-500 px-2 hidden xl:inline"
-            >Gói mẫu:</span
-          >
-          <button
-            type="button"
-            onclick="applyPreset('corporate')"
-            class="px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-white hover:text-qn-greenDark hover:shadow-sm transition whitespace-nowrap"
-          >
-            Doanh nghiệp
-          </button>
-          <button
-            type="button"
-            onclick="applyPreset('landing')"
-            class="px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-white hover:text-qn-greenDark hover:shadow-sm transition whitespace-nowrap"
-          >
-            Landing Page
-          </button>
-          <button
-            type="button"
-            onclick="applyPreset('ecommerce')"
-            class="px-2.5 py-1.5 text-xs font-medium rounded-lg hover:bg-white hover:text-qn-greenDark hover:shadow-sm transition whitespace-nowrap"
-          >
-            Bán hàng / TMĐT
-          </button>
-          <button
-            type="button"
-            onclick="applyPreset('portal')"
-            class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-white text-qn-slate shadow-sm border border-qn-green/30 hover:bg-qn-greenLight hover:text-qn-greenDark transition whitespace-nowrap"
-          >
-            Cổng TTĐT (Bệnh viện / CQNN)
-          </button>
-        </div>
-
-        <!-- Nút hành động -->
-        <div class="flex items-center gap-2">
-          <!-- Nút chuyển tab trên Mobile -->
-          <div
-            class="flex lg:hidden bg-slate-100 p-1 rounded-xl border border-slate-200"
-          >
-            <button
-              type="button"
-              id="btn-tab-editor"
-              onclick="switchMobileTab('editor')"
-              class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white text-qn-slate shadow-sm"
-            >
-              Soạn thảo
-            </button>
-            <button
-              type="button"
-              id="btn-tab-preview"
-              onclick="switchMobileTab('preview')"
-              class="px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-600"
-            >
-              Xem A4
-            </button>
-          </div>
-
-          <button
-            type="button"
-            onclick="resetToDefault()"
-            title="Khôi phục mặc định"
-            class="p-2.5 sm:px-3 sm:py-2 text-xs font-medium text-slate-600 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition flex items-center gap-1.5"
-          >
-            <svg
-              class="w-4 h-4 text-slate-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-              />
-            </svg>
-            <span class="hidden sm:inline">Làm mới</span>
-          </button>
-
-          <button
-            type="button"
-            onclick="window.print()"
-            class="px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-qn-green hover:bg-qn-greenDark rounded-xl shadow-md shadow-qn-green/25 transition flex items-center gap-2"
-          >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
-              />
-            </svg>
-            <span>In / Xuất PDF</span>
-          </button>
-        </div>
-      </div>
     </header>
 
     <!-- Khu vực làm việc 2 cột -->
-    <main
-      class="max-w-[1600px] mx-auto flex flex-col lg:flex-row min-h-[calc(100vh-65px)]"
-    >
-      <!-- CỘT TRÁI: TRÌNH NHẬP LIỆU -->
-      <section
-        id="editor-panel"
-        class="no-print w-full lg:w-[44%] xl:w-[42%] p-4 sm:p-6 space-y-5 lg:h-[calc(100vh-65px)] lg:overflow-y-auto border-r border-slate-200 bg-slate-50/70"
-      >
-        <!-- 1. Thông tin chung báo giá -->
-        <div
-          class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 space-y-4"
-        >
-          <div
-            class="flex items-center justify-between border-b border-slate-100 pb-3"
-          >
-            <h2 class="font-bold text-qn-slate text-sm flex items-center gap-2">
-              <span
-                class="w-6 h-6 rounded-lg bg-qn-greenLight text-qn-greenDark flex items-center justify-center text-xs font-extrabold"
-                >1</span
-              >
-              Thông tin chứng từ báo giá
-            </h2>
-            <button
-              type="button"
-              onclick="regenerateQuoteCode()"
-              class="text-xs font-medium text-qn-greenDark hover:underline"
-            >
-              Tạo mã mới
-            </button>
-          </div>
+    <main class="max-w-[1600px] mx-auto flex flex-col lg:flex-row min-h-[calc(100vh-65px)]">
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Số báo giá</label
-              >
-              <input
-                type="text"
-                id="inp-quoteCode"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Ngày lập</label
-              >
-              <input
-                type="date"
-                id="inp-quoteDate"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Hiệu lực (ngày)</label
-              >
-              <input
-                type="number"
-                id="inp-validDays"
-                min="1"
-                max="365"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-          </div>
+        <!-- CỘT TRÁI: TRÌNH NHẬP LIỆU -->
+        <section id="editor-panel" class="no-print w-full lg:w-[44%] xl:w-[42%] p-4 sm:p-6 space-y-5 lg:h-[calc(100vh-65px)] lg:overflow-y-auto border-r border-slate-200 bg-slate-50/70">
 
-          <!-- Tùy chỉnh nhanh thông tin QNSOFT -->
-          <details class="group pt-1">
-            <summary
-              class="text-xs font-semibold text-slate-500 hover:text-qn-slate cursor-pointer select-none flex items-center gap-1.5"
-            >
-              <svg
-                class="w-3.5 h-3.5 transition-transform group-open:rotate-90"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-              Tùy chỉnh thông tin pháp lý &amp; tài khoản QNSOFT
-            </summary>
-            <div
-              class="mt-3 pt-3 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-3"
-            >
-              <div class="sm:col-span-2">
-                <label
-                  class="block text-[11px] font-semibold text-slate-500 mb-1"
-                  >Tên đơn vị cung cấp</label
-                >
-                <input
-                  type="text"
-                  id="inp-companyName"
-                  class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-                />
-              </div>
-              <div class="sm:col-span-2">
-                <label
-                  class="block text-[11px] font-semibold text-slate-500 mb-1"
-                  >Địa chỉ trụ sở</label
-                >
-                <input
-                  type="text"
-                  id="inp-companyAddress"
-                  class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-[11px] font-semibold text-slate-500 mb-1"
-                  >Mã số thuế</label
-                >
-                <input
-                  type="text"
-                  id="inp-companyTax"
-                  class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-[11px] font-semibold text-slate-500 mb-1"
-                  >Hotline tư vấn</label
-                >
-                <input
-                  type="text"
-                  id="inp-companyPhone"
-                  class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-[11px] font-semibold text-slate-500 mb-1"
-                  >Email / Website</label
-                >
-                <input
-                  type="text"
-                  id="inp-companyWeb"
-                  class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-                />
-              </div>
-              <div>
-                <label
-                  class="block text-[11px] font-semibold text-slate-500 mb-1"
-                  >Chuyên viên lập báo giá</label
-                >
-                <input
-                  type="text"
-                  id="inp-staffName"
-                  class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-                />
-              </div>
-              <div class="sm:col-span-2">
-                <label
-                  class="block text-[11px] font-semibold text-slate-500 mb-1"
-                  >Thông tin tài khoản ngân hàng (hiển thị nếu nhập)</label
-                >
-                <input
-                  type="text"
-                  id="inp-companyBank"
-                  placeholder="VD: STK 123456789 - Ngân hàng TMCP Á Châu (ACB) - CN Bình Định"
-                  class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-                />
-              </div>
-            </div>
-          </details>
-        </div>
-
-        <!-- 2. Thông tin khách hàng & Dự án -->
-        <div
-          class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 space-y-4"
-        >
-          <div class="border-b border-slate-100 pb-3">
-            <h2 class="font-bold text-qn-slate text-sm flex items-center gap-2">
-              <span
-                class="w-6 h-6 rounded-lg bg-qn-greenLight text-qn-greenDark flex items-center justify-center text-xs font-extrabold"
-                >2</span
-              >
-              Thông tin Khách hàng &amp; Dự án
-            </h2>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div class="sm:col-span-2">
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Tên Khách hàng / Đơn vị / Cơ quan</label
-              >
-              <input
-                type="text"
-                id="inp-clientName"
-                placeholder="VD: Công ty TNHH Du Lịch Biển Xanh"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Người đại diện / Liên hệ</label
-              >
-              <input
-                type="text"
-                id="inp-clientContact"
-                placeholder="VD: Anh Nguyễn Văn An"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Số điện thoại</label
-              >
-              <input
-                type="text"
-                id="inp-clientPhone"
-                placeholder="VD: 0905 123 456"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Email</label
-              >
-              <input
-                type="email"
-                id="inp-clientEmail"
-                placeholder="VD: contact@khachhang.vn"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Địa chỉ</label
-              >
-              <input
-                type="text"
-                id="inp-clientAddress"
-                placeholder="VD: P. Quy Nhơn, Gia Lai"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-            <div class="sm:col-span-2">
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Tên dự án / Gói giải pháp</label
-              >
-              <input
-                type="text"
-                id="inp-projectName"
-                placeholder="VD: Thiết kế Website Giới thiệu Doanh nghiệp Chuẩn SEO"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-            <div class="sm:col-span-2">
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Thời gian triển khai dự kiến</label
-              >
-              <input
-                type="text"
-                id="inp-timeline"
-                placeholder="VD: 12 - 15 ngày làm việc (kể từ ngày duyệt giao diện)"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. Danh sách hạng mục báo giá -->
-        <div
-          class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 space-y-4"
-        >
-          <div
-            class="flex items-center justify-between border-b border-slate-100 pb-3"
-          >
-            <h2 class="font-bold text-qn-slate text-sm flex items-center gap-2">
-              <span
-                class="w-6 h-6 rounded-lg bg-qn-greenLight text-qn-greenDark flex items-center justify-center text-xs font-extrabold"
-                >3</span
-              >
-              Chi tiết hạng mục &amp; Chi phí
-            </h2>
-            <button
-              type="button"
-              onclick="addItem()"
-              class="px-3 py-1.5 text-xs font-semibold text-qn-greenDark bg-qn-greenLight hover:bg-qn-green hover:text-white rounded-xl transition flex items-center gap-1"
-            >
-              <span>+ Thêm hạng mục</span>
-            </button>
-          </div>
-
-          <!-- Container các dòng hạng mục -->
-          <div id="items-editor-list" class="space-y-3"></div>
-        </div>
-
-        <!-- 4. Chiết khấu, Thuế VAT & Điều khoản -->
-        <div
-          class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 space-y-4"
-        >
-          <div class="border-b border-slate-100 pb-3">
-            <h2 class="font-bold text-qn-slate text-sm flex items-center gap-2">
-              <span
-                class="w-6 h-6 rounded-lg bg-qn-greenLight text-qn-greenDark flex items-center justify-center text-xs font-extrabold"
-                >4</span
-              >
-              Ưu đãi, Thuế &amp; Điều khoản thanh toán
-            </h2>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Loại chiết khấu</label
-              >
-              <select
-                id="inp-discountType"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-              >
-                <option value="amount">Số tiền (VNĐ)</option>
-                <option value="percent">Phần trăm (%)</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Giá trị chiết khấu</label
-              >
-              <input
-                type="number"
-                id="inp-discountValue"
-                min="0"
-                step="any"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-              />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1"
-                >Thuế suất VAT</label
-              >
-              <select
-                id="inp-vatRate"
-                class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-              >
-                <option value="0">0% (Không gồm VAT)</option>
-                <option value="5">5% VAT</option>
-                <option value="8">8% VAT</option>
-                <option value="10">10% VAT</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1"
-              >Phương thức &amp; Tiến độ thanh toán</label
-            >
-            <textarea
-              id="inp-paymentTerms"
-              rows="3"
-              class="w-full px-3 py-2 text-xs leading-relaxed bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-            ></textarea>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1"
-              >Ghi chú &amp; Chính sách bảo hành QNSOFT</label
-            >
-            <textarea
-              id="inp-notes"
-              rows="4"
-              class="w-full px-3 py-2 text-xs leading-relaxed bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"
-            ></textarea>
-          </div>
-        </div>
-      </section>
-
-      <!-- CỘT PHẢI: BẢN XEM TRƯỚC CHUẨN IN ẤN A4 -->
-      <section
-        id="preview-wrapper"
-        class="hidden lg:flex w-full lg:w-[56%] xl:w-[58%] p-4 sm:p-8 justify-center items-start bg-slate-200/70 lg:h-[calc(100vh-65px)] lg:overflow-y-auto"
-      >
-        <div
-          class="a4-paper rounded-xl p-6 sm:p-10 flex flex-col justify-between text-slate-800 relative overflow-hidden"
-        >
-          <!-- Dải màu trang trí thương hiệu QNSOFT trên cùng -->
-          <div
-            class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-qn-slate via-qn-green to-qn-greenDark"
-          ></div>
-
-          <div>
-            <!-- Header công ty QNSOFT -->
-            <div
-              class="flex flex-col sm:flex-row justify-between items-start gap-4 pb-5 border-b-2 border-slate-200"
-            >
-              <div class="flex items-start gap-3.5">
-                <!-- Khối Logo chính thức QNSOFT -->
-                <div class="shrink-0 pt-0.5">
-                  <img
-                    src="https://thietkewebquynhon.com/wp-content/uploads/2022/06/logo-qnsoft.svg"
-                    alt="CÔNG TY TNHH CÔNG NGHỆ QNSOFT"
-                    class="h-12 w-auto max-w-[155px] object-contain"
-                    onerror="
-                      this.style.display = 'none';
-                      document
-                        .getElementById('a4-logo-fallback')
-                        .classList.remove('hidden');
-                    "
-                  />
-                  <div
-                    id="a4-logo-fallback"
-                    class="hidden w-12 h-12 rounded-2xl bg-gradient-to-br from-qn-green to-qn-slate flex flex-col items-center justify-center text-white shadow-sm"
-                  >
-                    <span
-                      class="font-extrabold text-base tracking-tight leading-none"
-                      >QN</span
-                    >
-                    <span
-                      class="text-[8px] font-semibold tracking-widest opacity-90 mt-0.5"
-                      >SOFT</span
-                    >
-                  </div>
+            <!-- 1. Thông tin chung báo giá -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <h2 class="font-bold text-qn-slate text-sm flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-lg bg-qn-greenLight text-qn-greenDark flex items-center justify-center text-xs font-extrabold">1</span>
+                        Thông tin chứng từ báo giá
+                    </h2>
+                    <button type="button" onclick="regenerateQuoteCode()" class="text-xs font-medium text-qn-greenDark hover:underline">
+                        Tạo mã mới
+                    </button>
                 </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Số báo giá</label>
+                        <input type="text" id="inp-quoteCode" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Ngày lập</label>
+                        <input type="date" id="inp-quoteDate" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Hiệu lực (ngày)</label>
+                        <input type="number" id="inp-validDays" min="1" max="365" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                </div>
+
+                <!-- Tùy chỉnh nhanh thông tin QNSOFT -->
+                <details class="group pt-1">
+                    <summary class="text-xs font-semibold text-slate-500 hover:text-qn-slate cursor-pointer select-none flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                        Tùy chỉnh thông tin pháp lý &amp; tài khoản QNSOFT
+                    </summary>
+                    <div class="mt-3 pt-3 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="sm:col-span-2">
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">Tên đơn vị cung cấp</label>
+                            <input type="text" id="inp-companyName" class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">Địa chỉ trụ sở</label>
+                            <input type="text" id="inp-companyAddress" class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">Mã số thuế</label>
+                            <input type="text" id="inp-companyTax" class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">Hotline tư vấn</label>
+                            <input type="text" id="inp-companyPhone" class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">Email / Website</label>
+                            <input type="text" id="inp-companyWeb" class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">Chuyên viên lập báo giá</label>
+                            <input type="text" id="inp-staffName" class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-[11px] font-semibold text-slate-500 mb-1">Thông tin tài khoản ngân hàng (hiển thị nếu nhập)</label>
+                            <input type="text" id="inp-companyBank" placeholder="VD: STK 123456789 - Ngân hàng TMCP Á Châu (ACB) - CN Bình Định" class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 2. Thông tin khách hàng & Dự án -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 space-y-4">
+                <div class="border-b border-slate-100 pb-3">
+                    <h2 class="font-bold text-qn-slate text-sm flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-lg bg-qn-greenLight text-qn-greenDark flex items-center justify-center text-xs font-extrabold">2</span>
+                        Thông tin Khách hàng &amp; Dự án
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Tên Khách hàng / Đơn vị / Cơ quan</label>
+                        <input type="text" id="inp-clientName" placeholder="VD: Công ty TNHH Du Lịch Biển Xanh" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Người đại diện / Liên hệ</label>
+                        <input type="text" id="inp-clientContact" placeholder="VD: Anh Nguyễn Văn An" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Số điện thoại</label>
+                        <input type="text" id="inp-clientPhone" placeholder="VD: 0905 123 456" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Email</label>
+                        <input type="email" id="inp-clientEmail" placeholder="VD: contact@khachhang.vn" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Địa chỉ</label>
+                        <input type="text" id="inp-clientAddress" placeholder="VD: P. Quy Nhơn, Gia Lai" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Tên dự án / Gói giải pháp</label>
+                        <input type="text" id="inp-projectName" placeholder="VD: Thiết kế Website Giới thiệu Doanh nghiệp Chuẩn SEO" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Thời gian triển khai dự kiến</label>
+                        <input type="text" id="inp-timeline" placeholder="VD: 12 - 15 ngày làm việc (kể từ ngày duyệt giao diện)" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-qn-green/40 focus:border-qn-green transition">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Danh sách hạng mục báo giá -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <h2 class="font-bold text-qn-slate text-sm flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-lg bg-qn-greenLight text-qn-greenDark flex items-center justify-center text-xs font-extrabold">3</span>
+                        Chi tiết hạng mục &amp; Chi phí
+                    </h2>
+                    <button type="button" onclick="addItem()" class="px-3 py-1.5 text-xs font-semibold text-qn-greenDark bg-qn-greenLight hover:bg-qn-green hover:text-white rounded-xl transition flex items-center gap-1">
+                        <span>+ Thêm hạng mục</span>
+                    </button>
+                </div>
+
+                <!-- Container các dòng hạng mục -->
+                <div id="items-editor-list" class="space-y-3"></div>
+            </div>
+
+            <!-- 4. Chiết khấu, Thuế VAT & Điều khoản -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 space-y-4">
+                <div class="border-b border-slate-100 pb-3">
+                    <h2 class="font-bold text-qn-slate text-sm flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-lg bg-qn-greenLight text-qn-greenDark flex items-center justify-center text-xs font-extrabold">4</span>
+                        Ưu đãi, Thuế &amp; Điều khoản thanh toán
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Loại chiết khấu</label>
+                        <select id="inp-discountType" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                            <option value="amount">Số tiền (VNĐ)</option>
+                            <option value="percent">Phần trăm (%)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Giá trị chiết khấu</label>
+                        <input type="number" id="inp-discountValue" min="0" step="any" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Thuế suất VAT</label>
+                        <select id="inp-vatRate" class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green">
+                            <option value="0">0% (Không gồm VAT)</option>
+                            <option value="5">5% VAT</option>
+                            <option value="8">8% VAT</option>
+                            <option value="10">10% VAT</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div>
-                  <h2
-                    id="out-companyName"
-                    class="font-extrabold text-qn-slate text-base tracking-tight uppercase"
-                  >
-                    CÔNG TY TNHH CÔNG NGHỆ QNSOFT
-                  </h2>
-                  <div
-                    class="mt-1 text-[10.5px] text-slate-600 space-y-0.5 leading-snug"
-                  >
-                    <p>
-                      <span class="font-semibold text-slate-700">Trụ sở:</span>
-                      <span id="out-companyAddress"
-                        >182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai</span
-                      >
-                    </p>
-                    <p>
-                      <span class="font-semibold text-slate-700">MST:</span>
-                      <span id="out-companyTax">4101628899</span> &nbsp;|&nbsp;
-                      <span class="font-semibold text-slate-700">Hotline:</span>
-                      <span id="out-companyPhone">0762 682 682</span>
-                    </p>
-                    <p>
-                      <span class="font-semibold text-slate-700">Liên hệ:</span>
-                      <span id="out-companyWeb"
-                        >contact@qnsoft.vn • www.qnsoft.vn</span
-                      >
-                    </p>
-                    <p id="out-companyBank-row" class="hidden">
-                      <span class="font-semibold text-slate-700"
-                        >Tài khoản:</span
-                      >
-                      <span id="out-companyBank"></span>
-                    </p>
-                  </div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Phương thức &amp; Tiến độ thanh toán</label>
+                    <textarea id="inp-paymentTerms" rows="3" class="w-full px-3 py-2 text-xs leading-relaxed bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"></textarea>
                 </div>
-              </div>
 
-              <!-- Khối tiêu đề BÁO GIÁ -->
-              <div
-                class="sm:text-right shrink-0 bg-qn-slateLight px-4 py-2.5 rounded-xl border border-slate-200/80 w-full sm:w-auto"
-              >
-                <h1
-                  class="text-xl font-extrabold text-qn-slate tracking-wide uppercase"
-                >
-                  BÁO GIÁ WEBSITE
-                </h1>
-                <div class="mt-1 text-[10.5px] text-slate-600 space-y-0.5">
-                  <p>
-                    Số:
-                    <span id="out-quoteCode" class="font-bold text-qn-greenDark"
-                      >BG-2026-001</span
-                    >
-                  </p>
-                  <p>
-                    Ngày lập:
-                    <span id="out-quoteDate" class="font-medium text-slate-800"
-                      >20/11/2026</span
-                    >
-                  </p>
-                  <p>
-                    Hiệu lực đến:
-                    <span id="out-validUntil" class="font-medium text-slate-800"
-                      >05/12/2026</span
-                    >
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Thông tin khách hàng & Dự án -->
-            <div
-              class="my-4 bg-slate-50/90 rounded-xl p-4 border border-slate-200/80 grid grid-cols-1 sm:grid-cols-12 gap-3 text-[11px]"
-            >
-              <div class="sm:col-span-7 space-y-1">
-                <p
-                  class="text-[10px] font-bold uppercase tracking-wider text-qn-greenDark"
-                >
-                  Kính gửi Quý Khách hàng / Đơn vị
-                </p>
-                <p id="out-clientName" class="font-bold text-sm text-qn-slate">
-                  Công ty TNHH Du Lịch Biển Xanh Quy Nhơn
-                </p>
-                <p class="text-slate-600">
-                  <span class="font-semibold text-slate-700">Đại diện:</span>
-                  <span id="out-clientContact"
-                    >Anh Nguyễn Văn An - Giám đốc</span
-                  >
-                </p>
-                <p class="text-slate-600">
-                  <span class="font-semibold text-slate-700">Điện thoại:</span>
-                  <span id="out-clientPhone">0905 123 456</span>
-                  <span id="out-clientEmail-wrap">
-                    &nbsp;•&nbsp;
-                    <span class="font-semibold text-slate-700">Email:</span>
-                    <span id="out-clientEmail"
-                      >info@bienxanhquynhon.vn</span
-                    ></span
-                  >
-                </p>
-                <p id="out-clientAddress-wrap" class="text-slate-600">
-                  <span class="font-semibold text-slate-700">Địa chỉ:</span>
-                  <span id="out-clientAddress">P. Quy Nhơn, Gia Lai</span>
-                </p>
-              </div>
-              <div
-                class="sm:col-span-5 sm:border-l sm:border-slate-200 sm:pl-4 flex flex-col justify-center space-y-1.5"
-              >
                 <div>
-                  <p
-                    class="text-[10px] font-bold uppercase tracking-wider text-slate-400"
-                  >
-                    Hạng mục triển khai
-                  </p>
-                  <p
-                    id="out-projectName"
-                    class="font-bold text-qn-slate leading-snug mt-0.5"
-                  >
-                    Thiết kế Website Giới thiệu Doanh nghiệp &amp; Dịch vụ Chuẩn
-                    SEO/GEO
-                  </p>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Ghi chú &amp; Chính sách bảo hành QNSOFT</label>
+                    <textarea id="inp-notes" rows="4" class="w-full px-3 py-2 text-xs leading-relaxed bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-qn-green"></textarea>
                 </div>
-                <div class="pt-1">
-                  <p
-                    class="text-[10px] font-bold uppercase tracking-wider text-slate-400"
-                  >
-                    Thời gian hoàn thành
-                  </p>
-                  <p
-                    id="out-timeline"
-                    class="font-medium text-slate-700 mt-0.5"
-                  >
-                    12 - 15 ngày làm việc (kể từ ngày duyệt giao diện)
-                  </p>
-                </div>
-              </div>
             </div>
 
-            <!-- Bảng chi tiết hạng mục -->
-            <div
-              class="mt-3 overflow-hidden rounded-xl border border-slate-200"
-            >
-              <table class="w-full text-left border-collapse text-[11px]">
-                <thead>
-                  <tr class="bg-qn-slate text-white">
-                    <th class="py-2.5 px-2.5 font-semibold text-center w-10">
-                      STT
-                    </th>
-                    <th class="py-2.5 px-3 font-semibold">
-                      Nội dung công việc / Hạng mục kỹ thuật
-                    </th>
-                    <th class="py-2.5 px-2 font-semibold text-center w-16">
-                      ĐVT
-                    </th>
-                    <th class="py-2.5 px-2 font-semibold text-center w-12">
-                      SL
-                    </th>
-                    <th class="py-2.5 px-2.5 font-semibold text-right w-28">
-                      Đơn giá (VNĐ)
-                    </th>
-                    <th class="py-2.5 px-3 font-semibold text-right w-28">
-                      Thành tiền (VNĐ)
-                    </th>
-                  </tr>
-                </thead>
-                <tbody
-                  id="out-items-tbody"
-                  class="divide-y divide-slate-200 bg-white"
-                >
-                  <!-- Render bằng JS -->
-                </tbody>
-              </table>
-            </div>
+        </section>
 
-            <!-- Khối tổng hợp tài chính -->
-            <div
-              class="keep-together mt-4 flex flex-col sm:flex-row justify-between items-start gap-4"
-            >
-              <!-- Số tiền bằng chữ -->
-              <div
-                class="w-full sm:w-[56%] bg-qn-greenLight/60 border border-qn-green/30 rounded-xl p-3 text-[11px]"
-              >
-                <p class="font-semibold text-qn-slate">
-                  Tổng giá trị thanh toán (bằng chữ):
-                </p>
-                <p
-                  id="out-amountInWords"
-                  class="italic font-bold text-qn-greenDark mt-1 leading-relaxed"
-                >
-                  Bảy triệu năm trăm nghìn đồng chẵn./.
-                </p>
-              </div>
+        <!-- CỘT PHẢI: BẢN XEM TRƯỚC CHUẨN IN ẤN A4 -->
+        <section id="preview-wrapper" class="hidden lg:flex w-full lg:w-[56%] xl:w-[58%] p-4 sm:p-8 justify-center items-start bg-slate-200/70 lg:h-[calc(100vh-65px)] lg:overflow-y-auto">
+            <div class="a4-paper rounded-xl p-6 sm:p-10 flex flex-col justify-between text-slate-800 relative overflow-hidden">
 
-              <!-- Bảng tính tổng -->
-              <div
-                class="w-full sm:w-[42%] rounded-xl border border-slate-200 overflow-hidden text-[11px]"
-              >
-                <div
-                  class="flex justify-between px-3 py-1.5 bg-slate-50 border-b border-slate-200"
-                >
-                  <span class="text-slate-600 font-medium"
-                    >Cộng tiền hàng:</span
-                  >
-                  <span id="out-subtotal" class="font-bold text-slate-800"
-                    >0 đ</span
-                  >
-                </div>
-                <div
-                  id="out-discount-row"
-                  class="flex justify-between px-3 py-1.5 bg-white border-b border-slate-200 text-rose-600"
-                >
-                  <span id="out-discount-label" class="font-medium"
-                    >Ưu đãi / Chiết khấu:</span
-                  >
-                  <span id="out-discount" class="font-semibold">- 0 đ</span>
-                </div>
-                <div
-                  class="flex justify-between px-3 py-1.5 bg-slate-50 border-b border-slate-200"
-                >
-                  <span id="out-vat-label" class="text-slate-600 font-medium"
-                    >Thuế GTGT (0%):</span
-                  >
-                  <span id="out-vat" class="font-semibold text-slate-800"
-                    >0 đ</span
-                  >
-                </div>
-                <div
-                  class="flex justify-between items-center px-3 py-2.5 bg-qn-slate text-white"
-                >
-                  <span class="font-bold uppercase text-[10.5px] tracking-wide"
-                    >Tổng thanh toán:</span
-                  >
-                  <span
-                    id="out-grandTotal"
-                    class="font-extrabold text-sm text-qn-green"
-                    >0 đ</span
-                  >
-                </div>
-              </div>
-            </div>
+                <!-- Dải màu trang trí thương hiệu QNSOFT trên cùng -->
+                <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-qn-slate via-qn-green to-qn-greenDark"></div>
 
-            <!-- Điều khoản thanh toán & Ghi chú -->
-            <div
-              class="keep-together mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-[10.5px] leading-relaxed"
-            >
-              <div
-                class="bg-slate-50 rounded-xl p-3 border border-slate-200/80"
-              >
-                <h3
-                  class="font-bold text-qn-slate uppercase text-[10px] tracking-wider mb-1.5 flex items-center gap-1.5"
-                >
-                  <span class="w-1.5 h-1.5 rounded-full bg-qn-green"></span>
-                  Tiến độ &amp; Hình thức thanh toán
-                </h3>
-                <div
-                  id="out-paymentTerms"
-                  class="text-slate-600 whitespace-pre-line"
-                ></div>
-              </div>
-              <div
-                class="bg-slate-50 rounded-xl p-3 border border-slate-200/80"
-              >
-                <h3
-                  class="font-bold text-qn-slate uppercase text-[10px] tracking-wider mb-1.5 flex items-center gap-1.5"
-                >
-                  <span class="w-1.5 h-1.5 rounded-full bg-qn-green"></span>
-                  Chính sách ưu đãi &amp; Bảo hành
-                </h3>
-                <div
-                  id="out-notes"
-                  class="text-slate-600 whitespace-pre-line"
-                ></div>
-              </div>
-            </div>
-          </div>
+                <div>
+                    <!-- Header công ty QNSOFT -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start gap-4 pb-5 border-b-2 border-slate-200">
+                        <div class="flex items-start gap-3.5">
+                            <!-- Khối Logo chính thức QNSOFT -->
+                            <div class="shrink-0 pt-0.5">
+                                <img
+                                    src="https://thietkewebquynhon.com/wp-content/uploads/2022/06/logo-qnsoft.svg"
+                                    alt="CÔNG TY TNHH CÔNG NGHỆ QNSOFT"
+                                    class="h-12 w-auto max-w-[155px] object-contain"
+                                    onerror="this.style.display='none'; document.getElementById('a4-logo-fallback').classList.remove('hidden');"
+                                >
+                                <div id="a4-logo-fallback" class="hidden w-12 h-12 rounded-2xl bg-gradient-to-br from-qn-green to-qn-slate flex flex-col items-center justify-center text-white shadow-sm">
+                                    <span class="font-extrabold text-base tracking-tight leading-none">QN</span>
+                                    <span class="text-[8px] font-semibold tracking-widest opacity-90 mt-0.5">SOFT</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h2 id="out-companyName" class="font-extrabold text-qn-slate text-base tracking-tight uppercase">
+                                    CÔNG TY TNHH CÔNG NGHỆ QNSOFT
+                                </h2>
+                                <div class="mt-1 text-[10.5px] text-slate-600 space-y-0.5 leading-snug">
+                                    <p><span class="font-semibold text-slate-700">Trụ sở:</span> <span id="out-companyAddress">182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai</span></p>
+                                    <p>
+                                        <span class="font-semibold text-slate-700">MST:</span> <span id="out-companyTax">4101628899</span> &nbsp;|&nbsp;
+                                        <span class="font-semibold text-slate-700">Hotline:</span> <span id="out-companyPhone">0762 682 682</span>
+                                    </p>
+                                    <p><span class="font-semibold text-slate-700">Liên hệ:</span> <span id="out-companyWeb">contact@qnsoft.vn • www.qnsoft.vn</span></p>
+                                    <p id="out-companyBank-row" class="hidden"><span class="font-semibold text-slate-700">Tài khoản:</span> <span id="out-companyBank"></span></p>
+                                </div>
+                            </div>
+                        </div>
 
-          <!-- Khu vực ký xác nhận & Chân trang -->
-          <div class="keep-together mt-6 pt-3">
-            <div class="grid grid-cols-2 gap-6 text-center text-[11px]">
-              <div>
-                <p class="font-bold text-qn-slate uppercase">
-                  ĐẠI DIỆN KHÁCH HÀNG
-                </p>
-                <p class="text-[10px] text-slate-400 italic mt-0.5">
-                  (Ký, ghi rõ họ tên &amp; đóng dấu nếu có)
-                </p>
-                <div class="h-16"></div>
-                <p class="font-semibold text-slate-600">
-                  Xác nhận đồng ý triển khai
-                </p>
-              </div>
-              <div>
-                <p class="font-bold text-qn-slate uppercase">ĐẠI DIỆN QNSOFT</p>
-                <p class="text-[10px] text-slate-400 italic mt-0.5">
-                  (Lập báo giá &amp; Tư vấn giải pháp)
-                </p>
-                <div class="h-16 flex items-center justify-center">
-                  <div
-                    class="border-2 border-qn-green/40 text-qn-greenDark/70 rounded-lg px-3 py-1 text-[9.5px] font-extrabold uppercase tracking-wider -rotate-3 select-none"
-                  >
-                    QNSOFT VERIFIED QUOTE
-                  </div>
+                        <!-- Khối tiêu đề BÁO GIÁ -->
+                        <div class="sm:text-right shrink-0 bg-qn-slateLight px-4 py-2.5 rounded-xl border border-slate-200/80 w-full sm:w-auto">
+                            <h1 class="text-xl font-extrabold text-qn-slate tracking-wide uppercase">BẢNG BÁO GIÁ</h1>
+                            <div class="mt-1 text-[10.5px] text-slate-600 space-y-0.5">
+                                <p>Số: <span id="out-quoteCode" class="font-bold text-qn-greenDark">BG-2026-001</span></p>
+                                <p>Ngày lập: <span id="out-quoteDate" class="font-medium text-slate-800">20/11/2026</span></p>
+                                <p>Hiệu lực đến: <span id="out-validUntil" class="font-medium text-slate-800">05/12/2026</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin khách hàng & Dự án -->
+                    <div class="my-4 bg-slate-50/90 rounded-xl p-4 border border-slate-200/80 grid grid-cols-1 sm:grid-cols-12 gap-3 text-[11px]">
+                        <div class="sm:col-span-7 space-y-1">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-qn-greenDark">Kính gửi Quý Khách hàng / Đơn vị</p>
+                            <p id="out-clientName" class="font-bold text-sm text-qn-slate">Công ty TNHH Du Lịch Biển Xanh Quy Nhơn</p>
+                            <p class="text-slate-600"><span class="font-semibold text-slate-700">Đại diện:</span> <span id="out-clientContact">Anh Nguyễn Văn An - Giám đốc</span></p>
+                            <p class="text-slate-600">
+                                <span class="font-semibold text-slate-700">Điện thoại:</span> <span id="out-clientPhone">0905 123 456</span>
+                                <span id="out-clientEmail-wrap"> &nbsp;•&nbsp; <span class="font-semibold text-slate-700">Email:</span> <span id="out-clientEmail">info@bienxanhquynhon.vn</span></span>
+                            </p>
+                            <p id="out-clientAddress-wrap" class="text-slate-600"><span class="font-semibold text-slate-700">Địa chỉ:</span> <span id="out-clientAddress">P. Quy Nhơn, Gia Lai</span></p>
+                        </div>
+                        <div class="sm:col-span-5 sm:border-l sm:border-slate-200 sm:pl-4 flex flex-col justify-center space-y-1.5">
+                            <div>
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Hạng mục triển khai</p>
+                                <p id="out-projectName" class="font-bold text-qn-slate leading-snug mt-0.5">Thiết kế Website Giới thiệu Doanh nghiệp &amp; Dịch vụ Chuẩn SEO/GEO</p>
+                            </div>
+                            <div class="pt-1">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Thời gian hoàn thành</p>
+                                <p id="out-timeline" class="font-medium text-slate-700 mt-0.5">12 - 15 ngày làm việc (kể từ ngày duyệt giao diện)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bảng chi tiết hạng mục -->
+                    <div class="mt-3 overflow-hidden rounded-xl border border-slate-200">
+                        <table class="w-full text-left border-collapse text-[11px]">
+                            <thead>
+                                <tr class="bg-qn-slate text-white">
+                                    <th class="py-2.5 px-2.5 font-semibold text-center w-10">STT</th>
+                                    <th class="py-2.5 px-3 font-semibold">Nội dung công việc / Hạng mục kỹ thuật</th>
+                                    <th class="py-2.5 px-2 font-semibold text-center w-16">ĐVT</th>
+                                    <th class="py-2.5 px-2 font-semibold text-center w-12">SL</th>
+                                    <th class="py-2.5 px-2.5 font-semibold text-right w-28">Đơn giá (VNĐ)</th>
+                                    <th class="py-2.5 px-3 font-semibold text-right w-28">Thành tiền (VNĐ)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="out-items-tbody" class="divide-y divide-slate-200 bg-white">
+                                <!-- Render bằng JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Khối tổng hợp tài chính -->
+                    <div class="keep-together mt-4 flex flex-col sm:flex-row justify-between items-start gap-4">
+                        <!-- Số tiền bằng chữ -->
+                        <div class="w-full sm:w-[56%] bg-qn-greenLight/60 border border-qn-green/30 rounded-xl p-3 text-[11px]">
+                            <p class="font-semibold text-qn-slate">Tổng giá trị thanh toán (bằng chữ):</p>
+                            <p id="out-amountInWords" class="italic font-bold text-qn-greenDark mt-1 leading-relaxed">
+                                Bảy triệu năm trăm nghìn đồng chẵn./.
+                            </p>
+                        </div>
+
+                        <!-- Bảng tính tổng -->
+                        <div class="w-full sm:w-[42%] rounded-xl border border-slate-200 overflow-hidden text-[11px]">
+                            <div class="flex justify-between px-3 py-1.5 bg-slate-50 border-b border-slate-200">
+                                <span class="text-slate-600 font-medium">Cộng tiền hàng:</span>
+                                <span id="out-subtotal" class="font-bold text-slate-800">0 đ</span>
+                            </div>
+                            <div id="out-discount-row" class="flex justify-between px-3 py-1.5 bg-white border-b border-slate-200 text-rose-600">
+                                <span id="out-discount-label" class="font-medium">Ưu đãi / Chiết khấu:</span>
+                                <span id="out-discount" class="font-semibold">- 0 đ</span>
+                            </div>
+                            <div class="flex justify-between px-3 py-1.5 bg-slate-50 border-b border-slate-200">
+                                <span id="out-vat-label" class="text-slate-600 font-medium">Thuế GTGT (0%):</span>
+                                <span id="out-vat" class="font-semibold text-slate-800">0 đ</span>
+                            </div>
+                            <div class="flex justify-between items-center px-3 py-2.5 bg-qn-slate text-white">
+                                <span class="font-bold uppercase text-[10.5px] tracking-wide">Tổng thanh toán:</span>
+                                <span id="out-grandTotal" class="font-extrabold text-sm text-qn-green">0 đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Điều khoản thanh toán & Ghi chú -->
+                    <div class="keep-together mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-[10.5px] leading-relaxed">
+                        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                            <h3 class="font-bold text-qn-slate uppercase text-[10px] tracking-wider mb-1.5 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-qn-green"></span>
+                                Tiến độ &amp; Hình thức thanh toán
+                            </h3>
+                            <div id="out-paymentTerms" class="text-slate-600 whitespace-pre-line"></div>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80">
+                            <h3 class="font-bold text-qn-slate uppercase text-[10px] tracking-wider mb-1.5 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-qn-green"></span>
+                                Chính sách ưu đãi &amp; Bảo hành
+                            </h3>
+                            <div id="out-notes" class="text-slate-600 whitespace-pre-line"></div>
+                        </div>
+                    </div>
                 </div>
-                <p id="out-staffName" class="font-bold text-qn-slate">
-                  Chuyên viên tư vấn: Nguyễn Đình Hiếu
-                </p>
-              </div>
-            </div>
 
-            <!-- Chân trang A4 -->
-            <div
-              class="mt-4 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[9.5px] text-slate-400"
-            >
-              <span id="out-footer-address"
-                >CÔNG TY TNHH CÔNG NGHỆ QNSOFT • 182 Hai Bà Trưng, P. Quy Nhơn,
-                Gia Lai</span
-              >
-              <span id="out-footer-contact"
-                >Website: qnsoft.vn • Hotline: 0762 682 682</span
-              >
+                <!-- Khu vực ký xác nhận & Chân trang -->
+                <div class="keep-together mt-6 pt-3">
+                    <div class="grid grid-cols-2 gap-6 text-center text-[11px]">
+                        <div>
+                            <p class="font-bold text-qn-slate uppercase">ĐẠI DIỆN KHÁCH HÀNG</p>
+                            <p class="text-[10px] text-slate-400 italic mt-0.5">(Ký, ghi rõ họ tên &amp; đóng dấu nếu có)</p>
+                            <div class="h-16"></div>
+                            <p class="font-semibold text-slate-600">Xác nhận đồng ý triển khai</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-qn-slate uppercase">ĐẠI DIỆN QNSOFT</p>
+                            <p class="text-[10px] text-slate-400 italic mt-0.5">(Lập báo giá &amp; Tư vấn giải pháp)</p>
+                            <div class="h-16 flex items-center justify-center">
+                                <div class="border-2 border-qn-green/40 text-qn-greenDark/70 rounded-lg px-3 py-1 text-[9.5px] font-extrabold uppercase tracking-wider -rotate-3 select-none">
+                                    QNSOFT VERIFIED QUOTE
+                                </div>
+                            </div>
+                            <p id="out-staffName" class="font-bold text-qn-slate">Chuyên viên tư vấn: Nguyễn Đình Hiếu</p>
+                        </div>
+                    </div>
+
+                    <!-- Chân trang A4 -->
+                    <div class="mt-4 pt-2.5 border-t border-slate-200 flex items-center justify-between text-[9.5px] text-slate-400">
+                        <span id="out-footer-address">CÔNG TY TNHH CÔNG NGHỆ QNSOFT • 182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai</span>
+                        <span id="out-footer-contact">Website: qnsoft.vn • Hotline: 0762 682 682</span>
+                    </div>
+                </div>
+
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
+
     </main>
 
     <script>
-      // =========================================================================
-      // 1. KHỞI TẠO DỮ LIỆU MẶC ĐỊNH & CÁC GÓI MẪU NHANH CỦA QNSOFT
-      // =========================================================================
-      const STORAGE_KEY = "qnsoft_quote_data_v3";
-      const OLD_STORAGE_KEYS = ["qnsoft_quote_data_v1", "qnsoft_quote_data_v2"];
+        // =========================================================================
+        // 1. KHỞI TẠO DỮ LIỆU MẶC ĐỊNH & CÁC GÓI MẪU NHANH CỦA QNSOFT
+        // =========================================================================
+        const STORAGE_KEY = 'qnsoft_quote_data_v3';
+        const OLD_STORAGE_KEYS = ['qnsoft_quote_data_v1', 'qnsoft_quote_data_v2'];
 
-      const DEFAULT_COMPANY_INFO = {
-        companyName: "CÔNG TY TNHH CÔNG NGHỆ QNSOFT",
-        companyAddress: "182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai",
-        companyTax: "4101628899",
-        companyPhone: "0762 682 682",
-        companyWeb: "info@qnsoft.vn • www.qnsoft.vn",
-        companyBank: "",
-        staffName: "Tư vấn: Nguyễn Đình Hiếu",
-      };
+        const DEFAULT_COMPANY_INFO = {
+            companyName: 'CÔNG TY TNHH CÔNG NGHỆ QNSOFT',
+            companyAddress: '182 Hai Bà Trưng, P. Quy Nhơn, Gia Lai',
+            companyTax: '4101628899',
+            companyPhone: '0762 682 682',
+            companyWeb: 'contact@qnsoft.vn • www.qnsoft.vn',
+            companyBank: '',
+            staffName: 'Chuyên viên tư vấn: Nguyễn Đình Hiếu'
+        };
 
-      function getTodayISO() {
-        const now = new Date();
-        const offset = now.getTimezoneOffset();
-        const local = new Date(now.getTime() - offset * 60000);
-        return local.toISOString().split("T")[0];
-      }
+        function getTodayISO() {
+            const now = new Date();
+            const offset = now.getTimezoneOffset();
+            const local = new Date(now.getTime() - offset * 60000);
+            return local.toISOString().split('T')[0];
+        }
 
-      function generateCodeString() {
-        const now = new Date();
-        const yyyy = now.getFullYear();
-        const mm = String(now.getMonth() + 1).padStart(2, "0");
-        const rand = String(Math.floor(100 + Math.random() * 900));
-        return `BG-${yyyy}${mm}-${rand}`;
-      }
+        function generateCodeString() {
+            const now = new Date();
+            const yyyy = now.getFullYear();
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const rand = String(Math.floor(100 + Math.random() * 900));
+            return `BG-${yyyy}${mm}-${rand}`;
+        }
 
-      // Các gói mẫu thực tế của QNSOFT
-      const PRESETS = {
-        corporate: {
-          projectName:
-            "Thiết kế Website Giới thiệu Doanh nghiệp & Dịch vụ Chuẩn SEO/GEO",
-          timeline: "12 - 15 ngày làm việc (kể từ ngày duyệt giao diện)",
-          discountType: "amount",
-          discountValue: 1000000,
-          vatRate: 0,
-          paymentTerms:
-            "• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết.\n• Đợt 2: Thanh toán 50% còn lại sau khi nghiệm thu, bàn giao toàn bộ source code & tài khoản quản trị.",
-          notes:
-            "• Tặng gói nhập liệu chuẩn SEO ban đầu lên đến 15 bài viết / dịch vụ.\n• Tặng gói đào tạo & hướng dẫn quản trị, vận hành Website 1-1 từ xa qua UltraView kèm tài liệu HDSD chi tiết.\n• Hỗ trợ khởi tạo & xác minh Google Business Profile (Google Maps) miễn phí.\n• Bảo hành kỹ thuật trọn đời khi sử dụng hạ tầng tại QNSOFT.",
-          items: [
-            {
-              id: "item-1",
-              name: "Thiết kế giao diện UI/UX độc quyền nhận diện thương hiệu",
-              desc: "Thiết kế chuẩn Responsive (PC, Tablet, Mobile), bố cục hiện đại, tối ưu trải nghiệm người dùng & tỷ lệ chuyển đổi.",
-              unit: "Gói",
-              qty: 1,
-              price: 3500000,
+        // Các gói mẫu thực tế của QNSOFT
+        const PRESETS = {
+            corporate: {
+                projectName: 'Thiết kế Website Giới thiệu Doanh nghiệp & Dịch vụ Chuẩn SEO/GEO',
+                timeline: '12 - 15 ngày làm việc (kể từ ngày duyệt giao diện)',
+                discountType: 'amount',
+                discountValue: 1000000,
+                vatRate: 0,
+                paymentTerms: '• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết.\n• Đợt 2: Thanh toán 50% còn lại sau khi nghiệm thu, bàn giao toàn bộ source code & tài khoản quản trị.',
+                notes: '• Tặng gói nhập liệu chuẩn SEO ban đầu lên đến 15 bài viết / dịch vụ.\n• Tặng gói đào tạo & hướng dẫn quản trị, vận hành Website 1-1 từ xa qua UltraView kèm tài liệu HDSD chi tiết.\n• Hỗ trợ khởi tạo & xác minh Google Business Profile (Google Maps) miễn phí.\n• Bảo hành kỹ thuật trọn đời khi sử dụng hạ tầng tại QNSOFT.',
+                items: [
+                    {
+                        id: 'item-1',
+                        name: 'Thiết kế giao diện UI/UX độc quyền nhận diện thương hiệu',
+                        desc: 'Thiết kế chuẩn Responsive (PC, Tablet, Mobile), bố cục hiện đại, tối ưu trải nghiệm người dùng & tỷ lệ chuyển đổi.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 3500000
+                    },
+                    {
+                        id: 'item-2',
+                        name: 'Lập trình hệ thống CMS quản trị nội dung & Module chức năng',
+                        desc: 'Trang chủ, Giới thiệu, Dịch vụ/Sản phẩm, Dự án tiêu biểu, Tin tức chuẩn SEO, Tuyển dụng, Form nhận báo giá & kết nối Zalo/Hotline.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 3000000
+                    },
+                    {
+                        id: 'item-3',
+                        name: 'Tối ưu kỹ thuật SEO Onpage, Schema GEO & Tốc độ tải trang',
+                        desc: 'Cấu trúc URL thân thiện, Sitemap XML, Schema doanh nghiệp địa phương, nén ảnh WebP & đạt điểm Google PageSpeed cao.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 1000000
+                    },
+                    {
+                        id: 'item-4',
+                        name: 'Tên miền quốc tế (.com / .vn) & Cloud Hosting NVMe tốc độ cao',
+                        desc: 'Dung lượng 5GB SSD NVMe, băng thông không giới hạn, sao lưu tự động hàng ngày & chứng chỉ bảo mật SSL miễn phí (01 năm).',
+                        unit: 'Năm',
+                        qty: 1,
+                        price: 1500000
+                    }
+                ]
             },
-            {
-              id: "item-2",
-              name: "Lập trình hệ thống CMS quản trị nội dung & Module chức năng",
-              desc: "Trang chủ, Giới thiệu, Dịch vụ/Sản phẩm, Dự án tiêu biểu, Tin tức chuẩn SEO, Tuyển dụng, Form nhận báo giá & kết nối Zalo/Hotline.",
-              unit: "Gói",
-              qty: 1,
-              price: 3000000,
+            landing: {
+                projectName: 'Thiết kế Landing Page Chạy Quảng Cáo & Chuyển Đổi Cao',
+                timeline: '05 - 07 ngày làm việc',
+                discountType: 'amount',
+                discountValue: 500000,
+                vatRate: 0,
+                paymentTerms: '• Đợt 1: Tạm ứng 50% khi chốt bố cục nội dung & ký xác nhận.\n• Đợt 2: Thanh toán 50% khi bàn giao Landing Page hoàn chỉnh.',
+                notes: '• Tối ưu tốc độ tải trang dưới 1.5 giây phục vụ chạy quảng cáo Google Ads / Facebook Ads / TikTok Ads.\n• Hỗ trợ gắn Pixel Facebook, Google Tag Manager & Google Analytics 4 miễn phí.\n• Hướng dẫn quản trị & chỉnh sửa nội dung, hình ảnh trực quan từ xa qua UltraView.',
+                items: [
+                    {
+                        id: 'item-l1',
+                        name: 'Thiết kế & Lập trình Landing Page chuẩn chuyển đổi (CRO)',
+                        desc: 'Thiết kế giao diện thu hút trên di động, hiệu ứng chuyển động mượt mà, tích hợp Form đăng ký tư vấn đổ về Email/Google Sheet.',
+                        unit: 'Trang',
+                        qty: 1,
+                        price: 3200000
+                    },
+                    {
+                        id: 'item-l2',
+                        name: 'Tích hợp công cụ đo lường quảng cáo & nút chuyển đổi nhanh',
+                        desc: 'Cài đặt GTM, GA4, Meta Pixel, nút gọi nhanh, chat Zalo OA & Messenger.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 800000
+                    },
+                    {
+                        id: 'item-l3',
+                        name: 'Cloud Hosting NVMe & Chứng chỉ bảo mật HTTPS/SSL (01 năm)',
+                        desc: 'Hạ tầng máy chủ Việt Nam ổn định, chịu tải cao khi chạy chiến dịch quảng cáo lớn.',
+                        unit: 'Năm',
+                        qty: 1,
+                        price: 1000000
+                    }
+                ]
             },
-            {
-              id: "item-3",
-              name: "Tối ưu kỹ thuật SEO Onpage, Schema GEO & Tốc độ tải trang",
-              desc: "Cấu trúc URL thân thiện, Sitemap XML, Schema doanh nghiệp địa phương, nén ảnh WebP & đạt điểm Google PageSpeed cao.",
-              unit: "Gói",
-              qty: 1,
-              price: 1000000,
+            ecommerce: {
+                projectName: 'Thiết kế Website Bán Hàng & Thương Mại Điện Tử Chuyên Nghiệp',
+                timeline: '18 - 25 ngày làm việc',
+                discountType: 'amount',
+                discountValue: 1500000,
+                vatRate: 0,
+                paymentTerms: '• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết.\n• Đợt 2: Thanh toán 30% sau khi hoàn thiện giao diện & chức năng giỏ hàng.\n• Đợt 3: Thanh toán 20% còn lại khi nghiệm thu & bàn giao.',
+                notes: '• Hỗ trợ nhập liệu mẫu 30 sản phẩm chuẩn SEO đầu tiên.\n• Tích hợp thanh toán chuyển khoản quét mã VietQR tự động điền số tiền & nội dung đơn hàng.\n• Tặng gói đào tạo quản lý đơn hàng, tồn kho & mã giảm giá trực tiếp 1-1 qua UltraView.\n• Bảo hành kỹ thuật & nâng cấp bảo mật miễn phí 12 tháng.',
+                items: [
+                    {
+                        id: 'item-e1',
+                        name: 'Thiết kế giao diện UI/UX Thương mại điện tử chuẩn Mobile-First',
+                        desc: 'Tối ưu trải nghiệm mua sắm trên điện thoại, bộ lọc thuộc tính thông minh (màu sắc, kích thước, khoảng giá), tìm kiếm gợi ý tức thì.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 5500000
+                    },
+                    {
+                        id: 'item-e2',
+                        name: 'Lập trình Giỏ hàng, Thanh toán VietQR & Quản lý đơn hàng',
+                        desc: 'Đặt hàng nhanh không cần đăng ký, mã giảm giá/Voucher, tính phí vận chuyển theo khu vực & tự động tạo mã QR thanh toán.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 4500000
+                    },
+                    {
+                        id: 'item-e3',
+                        name: 'Tối ưu SEO Thương mại điện tử & Schema Sản phẩm',
+                        desc: 'Tự động sinh Schema Product (giá, đánh giá, tình trạng kho), tối ưu hình ảnh WebP & tốc độ tải danh mục lớn.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 1500000
+                    },
+                    {
+                        id: 'item-e4',
+                        name: 'Cloud Hosting E-Commerce NVMe 10GB & Bảo mật SSL (01 năm)',
+                        desc: 'Cấu hình CPU/RAM chuyên dụng cho website bán hàng nhiều truy cập đồng thời.',
+                        unit: 'Năm',
+                        qty: 1,
+                        price: 2500000
+                    }
+                ]
             },
-            {
-              id: "item-4",
-              name: "Tên miền quốc tế (.com / .vn) & Cloud Hosting NVMe tốc độ cao",
-              desc: "Dung lượng 5GB SSD NVMe, băng thông không giới hạn, sao lưu tự động hàng ngày & chứng chỉ bảo mật SSL miễn phí (01 năm).",
-              unit: "Năm",
-              qty: 1,
-              price: 1500000,
-            },
-          ],
-        },
-        landing: {
-          projectName: "Thiết kế Landing Page Chạy Quảng Cáo & Chuyển Đổi Cao",
-          timeline: "05 - 07 ngày làm việc",
-          discountType: "amount",
-          discountValue: 500000,
-          vatRate: 0,
-          paymentTerms:
-            "• Đợt 1: Tạm ứng 50% khi chốt bố cục nội dung & ký xác nhận.\n• Đợt 2: Thanh toán 50% khi bàn giao Landing Page hoàn chỉnh.",
-          notes:
-            "• Tối ưu tốc độ tải trang dưới 1.5 giây phục vụ chạy quảng cáo Google Ads / Facebook Ads / TikTok Ads.\n• Hỗ trợ gắn Pixel Facebook, Google Tag Manager & Google Analytics 4 miễn phí.\n• Hướng dẫn quản trị & chỉnh sửa nội dung, hình ảnh trực quan từ xa qua UltraView.",
-          items: [
-            {
-              id: "item-l1",
-              name: "Thiết kế & Lập trình Landing Page chuẩn chuyển đổi (CRO)",
-              desc: "Thiết kế giao diện thu hút trên di động, hiệu ứng chuyển động mượt mà, tích hợp Form đăng ký tư vấn đổ về Email/Google Sheet.",
-              unit: "Trang",
-              qty: 1,
-              price: 3200000,
-            },
-            {
-              id: "item-l2",
-              name: "Tích hợp công cụ đo lường quảng cáo & nút chuyển đổi nhanh",
-              desc: "Cài đặt GTM, GA4, Meta Pixel, nút gọi nhanh, chat Zalo OA & Messenger.",
-              unit: "Gói",
-              qty: 1,
-              price: 800000,
-            },
-            {
-              id: "item-l3",
-              name: "Cloud Hosting NVMe & Chứng chỉ bảo mật HTTPS/SSL (01 năm)",
-              desc: "Hạ tầng máy chủ Việt Nam ổn định, chịu tải cao khi chạy chiến dịch quảng cáo lớn.",
-              unit: "Năm",
-              qty: 1,
-              price: 1000000,
-            },
-          ],
-        },
-        ecommerce: {
-          projectName:
-            "Thiết kế Website Bán Hàng & Thương Mại Điện Tử Chuyên Nghiệp",
-          timeline: "18 - 25 ngày làm việc",
-          discountType: "amount",
-          discountValue: 1500000,
-          vatRate: 0,
-          paymentTerms:
-            "• Đợt 1: Tạm ứng 50% giá trị hợp đồng ngay sau khi ký kết.\n• Đợt 2: Thanh toán 30% sau khi hoàn thiện giao diện & chức năng giỏ hàng.\n• Đợt 3: Thanh toán 20% còn lại khi nghiệm thu & bàn giao.",
-          notes:
-            "• Hỗ trợ nhập liệu mẫu 30 sản phẩm chuẩn SEO đầu tiên.\n• Tích hợp thanh toán chuyển khoản quét mã VietQR tự động điền số tiền & nội dung đơn hàng.\n• Tặng gói đào tạo quản lý đơn hàng, tồn kho & mã giảm giá trực tiếp 1-1 qua UltraView.\n• Bảo hành kỹ thuật & nâng cấp bảo mật miễn phí 12 tháng.",
-          items: [
-            {
-              id: "item-e1",
-              name: "Thiết kế giao diện UI/UX Thương mại điện tử chuẩn Mobile-First",
-              desc: "Tối ưu trải nghiệm mua sắm trên điện thoại, bộ lọc thuộc tính thông minh (màu sắc, kích thước, khoảng giá), tìm kiếm gợi ý tức thì.",
-              unit: "Gói",
-              qty: 1,
-              price: 5500000,
-            },
-            {
-              id: "item-e2",
-              name: "Lập trình Giỏ hàng, Thanh toán VietQR & Quản lý đơn hàng",
-              desc: "Đặt hàng nhanh không cần đăng ký, mã giảm giá/Voucher, tính phí vận chuyển theo khu vực & tự động tạo mã QR thanh toán.",
-              unit: "Gói",
-              qty: 1,
-              price: 4500000,
-            },
-            {
-              id: "item-e3",
-              name: "Tối ưu SEO Thương mại điện tử & Schema Sản phẩm",
-              desc: "Tự động sinh Schema Product (giá, đánh giá, tình trạng kho), tối ưu hình ảnh WebP & tốc độ tải danh mục lớn.",
-              unit: "Gói",
-              qty: 1,
-              price: 1500000,
-            },
-            {
-              id: "item-e4",
-              name: "Cloud Hosting E-Commerce NVMe 10GB & Bảo mật SSL (01 năm)",
-              desc: "Cấu hình CPU/RAM chuyên dụng cho website bán hàng nhiều truy cập đồng thời.",
-              unit: "Năm",
-              qty: 1,
-              price: 2500000,
-            },
-          ],
-        },
-        portal: {
-          clientName: "Bệnh viện Đa khoa / Cơ quan Hành chính Sự nghiệp",
-          clientContact: "Ban Giám đốc / Phòng Công nghệ Thông tin",
-          projectName:
-            "Xây dựng Cổng Thông Tin Điện Tử (Bệnh viện / Cơ quan Nhà nước)",
-          timeline:
-            "30 - 45 ngày làm việc (bao gồm khảo sát, lập trình, kiểm thử bảo mật & đào tạo)",
-          discountType: "amount",
-          discountValue: 3000000,
-          vatRate: 0,
-          paymentTerms:
-            "• Đợt 1: Tạm ứng 40% giá trị hợp đồng ngay sau khi ký kết hợp đồng triển khai.\n• Đợt 2: Thanh toán 30% sau khi hoàn thiện giao diện, cấu trúc phân hệ & chạy thử nghiệm trên môi trường Staging.\n• Đợt 3: Thanh toán 30% còn lại sau khi nghiệm thu, bàn giao tài liệu hướng dẫn & vận hành chính thức.",
-          notes:
-            "• Bàn giao đầy đủ Bộ tài liệu hướng dẫn quản trị hệ thống & quy trình biên tập tin bài (PDF/Video).\n• Tổ chức đào tạo, hướng dẫn quản trị từ xa qua UltraView (hoặc trực tiếp tại đơn vị) cho cán bộ quản trị & đội ngũ biên tập viên các khoa/phòng ban.\n• Hỗ trợ chuyển đổi dữ liệu tin tức, văn bản cũ sang hệ thống mới.\n• Bảo hành kỹ thuật, vá lỗi bảo mật & hỗ trợ vận hành 24/7 trong 12 - 24 tháng.",
-          items: [
-            {
-              id: "item-p1",
-              name: "Thiết kế giao diện Cổng TTĐT chuẩn mực, trang trọng & thân thiện người dân",
-              desc: "Bố cục khoa học theo quy chuẩn Cổng thông tin điện tử (Nghị định 42/2022/NĐ-CP), hỗ trợ giao diện tương phản cao, tăng giảm cỡ chữ & tương thích mọi thiết bị.",
-              unit: "Gói",
-              qty: 1,
-              price: 8500000,
-            },
-            {
-              id: "item-p2",
-              name: "Phân hệ Quản lý Văn bản, Thủ tục Hành chính & Quy trình Khám chữa bệnh",
-              desc: "Hệ thống lưu trữ, tra cứu nâng cao (theo số ký hiệu, cơ quan ban hành, lĩnh vực, ngày ban hành), đính kèm tệp PDF/DOCX & xem trực tuyến không cần tải về.",
-              unit: "Phân hệ",
-              qty: 1,
-              price: 7500000,
-            },
-            {
-              id: "item-p3",
-              name: "Phân hệ Tương tác trực tuyến: Đặt lịch khám / Hỏi đáp & Phản ánh kiến nghị",
-              desc: "Cổng đăng ký khám bệnh trực tuyến theo chuyên khoa/bác sĩ (hoặc tiếp nhận phản ánh kiến nghị của người dân), tra cứu trạng thái xử lý & thông báo qua Email/Zalo.",
-              unit: "Phân hệ",
-              qty: 1,
-              price: 6500000,
-            },
-            {
-              id: "item-p4",
-              name: "Hệ thống quản trị CMS phân quyền đa cấp & Quy trình kiểm duyệt tin bài",
-              desc: "Phân quyền chi tiết theo từng Khoa/Phòng ban (Phóng viên -> Biên tập viên -> Trưởng ban duyệt tin -> Xuất bản), lưu lịch sử chỉnh sửa & nhật ký thao tác hệ thống (Audit Log).",
-              unit: "Gói",
-              qty: 1,
-              price: 5500000,
-            },
-            {
-              id: "item-p5",
-              name: "Giải pháp Bảo mật nâng cao (WAF), Chống tấn công DDoS & Sao lưu dự phòng",
-              desc: "Tường lửa ứng dụng web chống SQL Injection/XSS, mã hóa SSL chuẩn quốc tế, cơ chế sao lưu dữ liệu tự động định kỳ hàng ngày & kiểm thử an toàn thông tin trước bàn giao.",
-              unit: "Gói",
-              qty: 1,
-              price: 4000000,
-            },
-            {
-              id: "item-p6",
-              name: "Hạ tầng Cloud Server chuyên dụng & Tên miền cơ quan/tổ chức (01 năm)",
-              desc: "Máy chủ hiệu năng cao đặt tại Data Center đạt chuẩn Tier 3 tại Việt Nam, băng thông lớn đáp ứng hàng chục nghìn lượt truy cập tra cứu đồng thời.",
-              unit: "Năm",
-              qty: 1,
-              price: 4500000,
-            },
-          ],
-        },
-      };
-
-      // Trạng thái ứng dụng
-      let quoteState = {
-        ...DEFAULT_COMPANY_INFO,
-        quoteCode: generateCodeString(),
-        quoteDate: getTodayISO(),
-        validDays: 15,
-        clientName: "Công ty TNHH Du Lịch Biển Xanh Quy Nhơn",
-        clientContact: "Anh Nguyễn Văn An - Giám đốc",
-        clientPhone: "0905 123 456",
-        clientEmail: "info@bienxanhquynhon.vn",
-        clientAddress: "P. Quy Nhơn, Gia Lai",
-        ...JSON.parse(JSON.stringify(PRESETS.corporate)),
-      };
-
-      // =========================================================================
-      // 2. HÀM TIỆN ÍCH ĐỊNH DẠNG TIỀN TỆ & ĐỌC SỐ TIẾNG VIỆT
-      // =========================================================================
-      function formatVND(num) {
-        const val = Math.round(Number(num) || 0);
-        return val.toLocaleString("vi-VN") + " đ";
-      }
-
-      function formatNumberOnly(num) {
-        const val = Math.round(Number(num) || 0);
-        return val.toLocaleString("vi-VN");
-      }
-
-      function numberToVietnameseWords(number) {
-        number = Math.round(Number(number) || 0);
-        if (number === 0) return "Không đồng./.";
-        if (number < 0)
-          return (
-            "Âm " + numberToVietnameseWords(Math.abs(number)).toLowerCase()
-          );
-
-        const units = ["", "nghìn", "triệu", "tỷ", "nghìn tỷ", "triệu tỷ"];
-        const digits = [
-          "không",
-          "một",
-          "hai",
-          "ba",
-          "bốn",
-          "năm",
-          "sáu",
-          "bảy",
-          "tám",
-          "chín",
-        ];
-
-        function readThreeDigits(num, showZeroHundred) {
-          const hundred = Math.floor(num / 100);
-          const ten = Math.floor((num % 100) / 10);
-          const unit = num % 10;
-          let res = "";
-
-          if (hundred > 0 || showZeroHundred) {
-            res += digits[hundred] + " trăm ";
-          }
-
-          if (ten === 0 && unit > 0 && (hundred > 0 || showZeroHundred)) {
-            res += "lẻ ";
-          } else if (ten === 1) {
-            res += "mười ";
-          } else if (ten > 1) {
-            res += digits[ten] + " mươi ";
-          }
-
-          if (unit > 0) {
-            if (ten === 0 || ten === 1) {
-              if (unit === 5 && ten === 1) {
-                res += "lăm";
-              } else {
-                res += digits[unit];
-              }
-            } else {
-              if (unit === 1) {
-                res += "mốt";
-              } else if (unit === 4) {
-                res += "tư";
-              } else if (unit === 5) {
-                res += "lăm";
-              } else {
-                res += digits[unit];
-              }
+            portal: {
+                clientName: 'Bệnh viện Đa khoa / Cơ quan Hành chính Sự nghiệp',
+                clientContact: 'Ban Giám đốc / Phòng Công nghệ Thông tin',
+                projectName: 'Xây dựng Cổng Thông Tin Điện Tử (Bệnh viện / Cơ quan Nhà nước)',
+                timeline: '30 - 45 ngày làm việc (bao gồm khảo sát, lập trình, kiểm thử bảo mật & đào tạo)',
+                discountType: 'amount',
+                discountValue: 3000000,
+                vatRate: 0,
+                paymentTerms: '• Đợt 1: Tạm ứng 40% giá trị hợp đồng ngay sau khi ký kết hợp đồng triển khai.\n• Đợt 2: Thanh toán 30% sau khi hoàn thiện giao diện, cấu trúc phân hệ & chạy thử nghiệm trên môi trường Staging.\n• Đợt 3: Thanh toán 30% còn lại sau khi nghiệm thu, bàn giao tài liệu hướng dẫn & vận hành chính thức.',
+                notes: '• Bàn giao đầy đủ Bộ tài liệu hướng dẫn quản trị hệ thống & quy trình biên tập tin bài (PDF/Video).\n• Tổ chức đào tạo, hướng dẫn quản trị từ xa qua UltraView (hoặc trực tiếp tại đơn vị) cho cán bộ quản trị & đội ngũ biên tập viên các khoa/phòng ban.\n• Hỗ trợ chuyển đổi dữ liệu tin tức, văn bản cũ sang hệ thống mới.\n• Bảo hành kỹ thuật, vá lỗi bảo mật & hỗ trợ vận hành 24/7 trong 12 - 24 tháng.',
+                items: [
+                    {
+                        id: 'item-p1',
+                        name: 'Thiết kế giao diện Cổng TTĐT chuẩn mực, trang trọng & thân thiện người dân',
+                        desc: 'Bố cục khoa học theo quy chuẩn Cổng thông tin điện tử (Nghị định 42/2022/NĐ-CP), hỗ trợ giao diện tương phản cao, tăng giảm cỡ chữ & tương thích mọi thiết bị.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 8500000
+                    },
+                    {
+                        id: 'item-p2',
+                        name: 'Phân hệ Quản lý Văn bản, Thủ tục Hành chính & Quy trình Khám chữa bệnh',
+                        desc: 'Hệ thống lưu trữ, tra cứu nâng cao (theo số ký hiệu, cơ quan ban hành, lĩnh vực, ngày ban hành), đính kèm tệp PDF/DOCX & xem trực tuyến không cần tải về.',
+                        unit: 'Phân hệ',
+                        qty: 1,
+                        price: 7500000
+                    },
+                    {
+                        id: 'item-p3',
+                        name: 'Phân hệ Tương tác trực tuyến: Đặt lịch khám / Hỏi đáp & Phản ánh kiến nghị',
+                        desc: 'Cổng đăng ký khám bệnh trực tuyến theo chuyên khoa/bác sĩ (hoặc tiếp nhận phản ánh kiến nghị của người dân), tra cứu trạng thái xử lý & thông báo qua Email/Zalo.',
+                        unit: 'Phân hệ',
+                        qty: 1,
+                        price: 6500000
+                    },
+                    {
+                        id: 'item-p4',
+                        name: 'Hệ thống quản trị CMS phân quyền đa cấp & Quy trình kiểm duyệt tin bài',
+                        desc: 'Phân quyền chi tiết theo từng Khoa/Phòng ban (Phóng viên -> Biên tập viên -> Trưởng ban duyệt tin -> Xuất bản), lưu lịch sử chỉnh sửa & nhật ký thao tác hệ thống (Audit Log).',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 5500000
+                    },
+                    {
+                        id: 'item-p5',
+                        name: 'Giải pháp Bảo mật nâng cao (WAF), Chống tấn công DDoS & Sao lưu dự phòng',
+                        desc: 'Tường lửa ứng dụng web chống SQL Injection/XSS, mã hóa SSL chuẩn quốc tế, cơ chế sao lưu dữ liệu tự động định kỳ hàng ngày & kiểm thử an toàn thông tin trước bàn giao.',
+                        unit: 'Gói',
+                        qty: 1,
+                        price: 4000000
+                    },
+                    {
+                        id: 'item-p6',
+                        name: 'Hạ tầng Cloud Server chuyên dụng & Tên miền cơ quan/tổ chức (01 năm)',
+                        desc: 'Máy chủ hiệu năng cao đặt tại Data Center đạt chuẩn Tier 3 tại Việt Nam, băng thông lớn đáp ứng hàng chục nghìn lượt truy cập tra cứu đồng thời.',
+                        unit: 'Năm',
+                        qty: 1,
+                        price: 4500000
+                    }
+                ]
             }
-          }
-          return res.trim();
+        };
+
+        // Trạng thái ứng dụng
+        let quoteState = {
+            ...DEFAULT_COMPANY_INFO,
+            quoteCode: generateCodeString(),
+            quoteDate: getTodayISO(),
+            validDays: 15,
+            clientName: 'Công ty TNHH Du Lịch Biển Xanh Quy Nhơn',
+            clientContact: 'Anh Nguyễn Văn An - Giám đốc',
+            clientPhone: '0905 123 456',
+            clientEmail: 'info@bienxanhquynhon.vn',
+            clientAddress: 'P. Quy Nhơn, Gia Lai',
+            ...JSON.parse(JSON.stringify(PRESETS.corporate))
+        };
+
+        // =========================================================================
+        // 2. HÀM TIỆN ÍCH ĐỊNH DẠNG TIỀN TỆ & ĐỌC SỐ TIẾNG VIỆT
+        // =========================================================================
+        function formatVND(num) {
+            const val = Math.round(Number(num) || 0);
+            return val.toLocaleString('vi-VN') + ' đ';
         }
 
-        let groups = [];
-        let temp = number;
-        while (temp > 0) {
-          groups.push(temp % 1000);
-          temp = Math.floor(temp / 1000);
+        function formatNumberOnly(num) {
+            const val = Math.round(Number(num) || 0);
+            return val.toLocaleString('vi-VN');
         }
 
-        let words = [];
-        for (let i = groups.length - 1; i >= 0; i--) {
-          if (groups[i] > 0) {
-            const showZero = i < groups.length - 1;
-            const chunk = readThreeDigits(groups[i], showZero);
-            words.push((chunk + " " + units[i]).trim());
-          }
-        }
+        function numberToVietnameseWords(number) {
+            number = Math.round(Number(number) || 0);
+            if (number === 0) return 'Không đồng./.';
+            if (number < 0) return 'Âm ' + numberToVietnameseWords(Math.abs(number)).toLowerCase();
 
-        let sentence = words.join(" ").replace(/\s+/g, " ").trim();
-        sentence =
-          sentence.charAt(0).toUpperCase() +
-          sentence.slice(1) +
-          " đồng chẵn./.";
-        return sentence;
-      }
+            const units = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];
+            const digits = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
 
-      function formatDateVN(isoStr) {
-        if (!isoStr) return "";
-        const parts = isoStr.split("-");
-        if (parts.length !== 3) return isoStr;
-        return `${parts[2]}/${parts[1]}/${parts[0]}`;
-      }
+            function readThreeDigits(num, showZeroHundred) {
+                const hundred = Math.floor(num / 100);
+                const ten = Math.floor((num % 100) / 10);
+                const unit = num % 10;
+                let res = '';
 
-      function addDaysVN(isoStr, days) {
-        if (!isoStr) return "";
-        const d = new Date(isoStr);
-        if (isNaN(d.getTime())) return "";
-        d.setDate(d.getDate() + (parseInt(days, 10) || 0));
-        const dd = String(d.getDate()).padStart(2, "0");
-        const mm = String(d.getMonth() + 1).padStart(2, "0");
-        const yyyy = d.getFullYear();
-        return `${dd}/${mm}/${yyyy}`;
-      }
+                if (hundred > 0 || showZeroHundred) {
+                    res += digits[hundred] + ' trăm ';
+                }
 
-      function escapeHTML(str) {
-        return String(str || "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#039;");
-      }
+                if (ten === 0 && unit > 0 && (hundred > 0 || showZeroHundred)) {
+                    res += 'lẻ ';
+                } else if (ten === 1) {
+                    res += 'mười ';
+                } else if (ten > 1) {
+                    res += digits[ten] + ' mươi ';
+                }
 
-      // =========================================================================
-      // 3. QUẢN LÝ LƯU TRỮ LOCALSTORAGE & TOAST
-      // =========================================================================
-      let toastTimer = null;
-      function showToast(msg) {
-        const toast = document.getElementById("toast");
-        const toastMsg = document.getElementById("toast-message");
-        if (!toast || !toastMsg) return;
-        toastMsg.textContent = msg;
-        toast.classList.remove("translate-y-20", "opacity-0");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => {
-          toast.classList.add("translate-y-20", "opacity-0");
-        }, 2200);
-      }
-
-      function saveState() {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(quoteState));
-        } catch (e) {
-          console.warn("Không thể lưu vào localStorage:", e);
-        }
-      }
-
-      function loadState() {
-        try {
-          OLD_STORAGE_KEYS.forEach((k) => localStorage.removeItem(k));
-          const saved = localStorage.getItem(STORAGE_KEY);
-          if (saved) {
-            const parsed = JSON.parse(saved);
-            if (parsed && Array.isArray(parsed.items)) {
-              quoteState = { ...quoteState, ...parsed };
+                if (unit > 0) {
+                    if (ten === 0 || ten === 1) {
+                        if (unit === 5 && ten === 1) {
+                            res += 'lăm';
+                        } else {
+                            res += digits[unit];
+                        }
+                    } else {
+                        if (unit === 1) {
+                            res += 'mốt';
+                        } else if (unit === 4) {
+                            res += 'tư';
+                        } else if (unit === 5) {
+                            res += 'lăm';
+                        } else {
+                            res += digits[unit];
+                        }
+                    }
+                }
+                return res.trim();
             }
-          }
-        } catch (e) {
-          console.warn("Lỗi đọc localStorage:", e);
+
+            let groups = [];
+            let temp = number;
+            while (temp > 0) {
+                groups.push(temp % 1000);
+                temp = Math.floor(temp / 1000);
+            }
+
+            let words = [];
+            for (let i = groups.length - 1; i >= 0; i--) {
+                if (groups[i] > 0) {
+                    const showZero = i < groups.length - 1;
+                    const chunk = readThreeDigits(groups[i], showZero);
+                    words.push((chunk + ' ' + units[i]).trim());
+                }
+            }
+
+            let sentence = words.join(' ').replace(/\s+/g, ' ').trim();
+            sentence = sentence.charAt(0).toUpperCase() + sentence.slice(1) + ' đồng chẵn./.';
+            return sentence;
         }
-      }
 
-      // =========================================================================
-      // 4. ĐỒNG BỘ DỮ LIỆU GIỮA FORM NHẬP LIỆU VÀ BẢN IN A4
-      // =========================================================================
-      function populateEditorFields() {
-        document.getElementById("inp-companyName").value =
-          quoteState.companyName || DEFAULT_COMPANY_INFO.companyName;
-        document.getElementById("inp-companyAddress").value =
-          quoteState.companyAddress || DEFAULT_COMPANY_INFO.companyAddress;
-        document.getElementById("inp-companyTax").value =
-          quoteState.companyTax || DEFAULT_COMPANY_INFO.companyTax;
-        document.getElementById("inp-companyPhone").value =
-          quoteState.companyPhone || DEFAULT_COMPANY_INFO.companyPhone;
-        document.getElementById("inp-companyWeb").value =
-          quoteState.companyWeb || DEFAULT_COMPANY_INFO.companyWeb;
-        document.getElementById("inp-companyBank").value =
-          quoteState.companyBank || "";
-        document.getElementById("inp-staffName").value =
-          quoteState.staffName || DEFAULT_COMPANY_INFO.staffName;
+        function formatDateVN(isoStr) {
+            if (!isoStr) return '';
+            const parts = isoStr.split('-');
+            if (parts.length !== 3) return isoStr;
+            return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
 
-        document.getElementById("inp-quoteCode").value =
-          quoteState.quoteCode || "";
-        document.getElementById("inp-quoteDate").value =
-          quoteState.quoteDate || getTodayISO();
-        document.getElementById("inp-validDays").value =
-          quoteState.validDays ?? 15;
+        function addDaysVN(isoStr, days) {
+            if (!isoStr) return '';
+            const d = new Date(isoStr);
+            if (isNaN(d.getTime())) return '';
+            d.setDate(d.getDate() + (parseInt(days, 10) || 0));
+            const dd = String(d.getDate()).padStart(2, '0');
+            const mm = String(d.getMonth() + 1).padStart(2, '0');
+            const yyyy = d.getFullYear();
+            return `${dd}/${mm}/${yyyy}`;
+        }
 
-        document.getElementById("inp-clientName").value =
-          quoteState.clientName || "";
-        document.getElementById("inp-clientContact").value =
-          quoteState.clientContact || "";
-        document.getElementById("inp-clientPhone").value =
-          quoteState.clientPhone || "";
-        document.getElementById("inp-clientEmail").value =
-          quoteState.clientEmail || "";
-        document.getElementById("inp-clientAddress").value =
-          quoteState.clientAddress || "";
-        document.getElementById("inp-projectName").value =
-          quoteState.projectName || "";
-        document.getElementById("inp-timeline").value =
-          quoteState.timeline || "";
+        function escapeHTML(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
 
-        document.getElementById("inp-discountType").value =
-          quoteState.discountType || "amount";
-        document.getElementById("inp-discountValue").value =
-          quoteState.discountValue ?? 0;
-        document.getElementById("inp-vatRate").value = quoteState.vatRate ?? 0;
-        document.getElementById("inp-paymentTerms").value =
-          quoteState.paymentTerms || "";
-        document.getElementById("inp-notes").value = quoteState.notes || "";
+        // =========================================================================
+        // 3. QUẢN LÝ LƯU TRỮ LOCALSTORAGE & TOAST
+        // =========================================================================
+        let toastTimer = null;
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            if (!toast || !toastMsg) return;
+            toastMsg.textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2200);
+        }
 
-        renderItemsEditor();
-      }
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(quoteState));
+            } catch (e) {
+                console.warn('Không thể lưu vào localStorage:', e);
+            }
+        }
 
-      function renderItemsEditor() {
-        const container = document.getElementById("items-editor-list");
-        container.innerHTML = "";
+        function loadState() {
+            try {
+                OLD_STORAGE_KEYS.forEach(k => localStorage.removeItem(k));
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (parsed && Array.isArray(parsed.items)) {
+                        quoteState = { ...quoteState, ...parsed };
+                    }
+                }
+            } catch (e) {
+                console.warn('Lỗi đọc localStorage:', e);
+            }
+        }
 
-        if (!quoteState.items.length) {
-          container.innerHTML = `
+        // =========================================================================
+        // 4. ĐỒNG BỘ DỮ LIỆU GIỮA FORM NHẬP LIỆU VÀ BẢN IN A4
+        // =========================================================================
+        function populateEditorFields() {
+            document.getElementById('inp-companyName').value = quoteState.companyName || DEFAULT_COMPANY_INFO.companyName;
+            document.getElementById('inp-companyAddress').value = quoteState.companyAddress || DEFAULT_COMPANY_INFO.companyAddress;
+            document.getElementById('inp-companyTax').value = quoteState.companyTax || DEFAULT_COMPANY_INFO.companyTax;
+            document.getElementById('inp-companyPhone').value = quoteState.companyPhone || DEFAULT_COMPANY_INFO.companyPhone;
+            document.getElementById('inp-companyWeb').value = quoteState.companyWeb || DEFAULT_COMPANY_INFO.companyWeb;
+            document.getElementById('inp-companyBank').value = quoteState.companyBank || '';
+            document.getElementById('inp-staffName').value = quoteState.staffName || DEFAULT_COMPANY_INFO.staffName;
+
+            document.getElementById('inp-quoteCode').value = quoteState.quoteCode || '';
+            document.getElementById('inp-quoteDate').value = quoteState.quoteDate || getTodayISO();
+            document.getElementById('inp-validDays').value = quoteState.validDays ?? 15;
+
+            document.getElementById('inp-clientName').value = quoteState.clientName || '';
+            document.getElementById('inp-clientContact').value = quoteState.clientContact || '';
+            document.getElementById('inp-clientPhone').value = quoteState.clientPhone || '';
+            document.getElementById('inp-clientEmail').value = quoteState.clientEmail || '';
+            document.getElementById('inp-clientAddress').value = quoteState.clientAddress || '';
+            document.getElementById('inp-projectName').value = quoteState.projectName || '';
+            document.getElementById('inp-timeline').value = quoteState.timeline || '';
+
+            document.getElementById('inp-discountType').value = quoteState.discountType || 'amount';
+            document.getElementById('inp-discountValue').value = quoteState.discountValue ?? 0;
+            document.getElementById('inp-vatRate').value = quoteState.vatRate ?? 0;
+            document.getElementById('inp-paymentTerms').value = quoteState.paymentTerms || '';
+            document.getElementById('inp-notes').value = quoteState.notes || '';
+
+            renderItemsEditor();
+        }
+
+        function renderItemsEditor() {
+            const container = document.getElementById('items-editor-list');
+            container.innerHTML = '';
+
+            if (!quoteState.items.length) {
+                container.innerHTML = `
                     <div class="text-center py-6 border-2 border-dashed border-slate-200 rounded-xl text-xs text-slate-400">
                         Chưa có hạng mục nào. Nhấn <strong>"+ Thêm hạng mục"</strong> để bắt đầu.
                     </div>
                 `;
-          return;
-        }
+                return;
+            }
 
-        quoteState.items.forEach((item, index) => {
-          const card = document.createElement("div");
-          card.className =
-            "p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 space-y-2.5 transition hover:border-qn-green/60";
-          card.innerHTML = `
+            quoteState.items.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 space-y-2.5 transition hover:border-qn-green/60';
+                card.innerHTML = `
                     <div class="flex items-center justify-between gap-2">
                         <span class="text-[11px] font-extrabold text-qn-slate bg-white px-2 py-0.5 rounded-md border border-slate-200">
                             Hạng mục #${index + 1}
                         </span>
                         <div class="flex items-center gap-1">
-                            <button type="button" onclick="moveItem(${index}, -1)" ${index === 0 ? "disabled" : ""} title="Di chuyển lên" class="p-1 text-slate-400 hover:text-qn-slate disabled:opacity-30">
+                            <button type="button" onclick="moveItem(${index}, -1)" ${index === 0 ? 'disabled' : ''} title="Di chuyển lên" class="p-1 text-slate-400 hover:text-qn-slate disabled:opacity-30">
                                 ▲
                             </button>
-                            <button type="button" onclick="moveItem(${index}, 1)" ${index === quoteState.items.length - 1 ? "disabled" : ""} title="Di chuyển xuống" class="p-1 text-slate-400 hover:text-qn-slate disabled:opacity-30">
+                            <button type="button" onclick="moveItem(${index}, 1)" ${index === quoteState.items.length - 1 ? 'disabled' : ''} title="Di chuyển xuống" class="p-1 text-slate-400 hover:text-qn-slate disabled:opacity-30">
                                 ▼
                             </button>
                             <button type="button" onclick="removeItem(${index})" title="Xóa hạng mục" class="p-1 text-rose-400 hover:text-rose-600 ml-1">
@@ -1544,337 +1021,304 @@
                         </div>
                     </div>
                 `;
-          container.appendChild(card);
-        });
-      }
-
-      // =========================================================================
-      // 5. RENDER BẢN XEM TRƯỚC CHUẨN IN ẤN A4 & TÍNH TOÁN TÀI CHÍNH
-      // =========================================================================
-      function renderPreview() {
-        const companyName =
-          quoteState.companyName || DEFAULT_COMPANY_INFO.companyName;
-        const companyAddress =
-          quoteState.companyAddress || DEFAULT_COMPANY_INFO.companyAddress;
-        const companyTax =
-          quoteState.companyTax || DEFAULT_COMPANY_INFO.companyTax;
-        const companyPhone =
-          quoteState.companyPhone || DEFAULT_COMPANY_INFO.companyPhone;
-        const companyWeb =
-          quoteState.companyWeb || DEFAULT_COMPANY_INFO.companyWeb;
-
-        document.getElementById("out-companyName").textContent = companyName;
-        document.getElementById("out-companyAddress").textContent =
-          companyAddress;
-        document.getElementById("out-companyTax").textContent = companyTax;
-        document.getElementById("out-companyPhone").textContent = companyPhone;
-        document.getElementById("out-companyWeb").textContent = companyWeb;
-
-        document.getElementById("out-footer-address").textContent =
-          `${companyName} • ${companyAddress}`;
-        document.getElementById("out-footer-contact").textContent =
-          `Website: qnsoft.vn • Hotline: ${companyPhone}`;
-
-        const bankRow = document.getElementById("out-companyBank-row");
-        if (quoteState.companyBank && quoteState.companyBank.trim()) {
-          bankRow.classList.remove("hidden");
-          document.getElementById("out-companyBank").textContent =
-            quoteState.companyBank.trim();
-        } else {
-          bankRow.classList.add("hidden");
+                container.appendChild(card);
+            });
         }
 
-        document.getElementById("out-staffName").textContent =
-          quoteState.staffName || DEFAULT_COMPANY_INFO.staffName;
+        // =========================================================================
+        // 5. RENDER BẢN XEM TRƯỚC CHUẨN IN ẤN A4 & TÍNH TOÁN TÀI CHÍNH
+        // =========================================================================
+        function renderPreview() {
+            const companyName = quoteState.companyName || DEFAULT_COMPANY_INFO.companyName;
+            const companyAddress = quoteState.companyAddress || DEFAULT_COMPANY_INFO.companyAddress;
+            const companyTax = quoteState.companyTax || DEFAULT_COMPANY_INFO.companyTax;
+            const companyPhone = quoteState.companyPhone || DEFAULT_COMPANY_INFO.companyPhone;
+            const companyWeb = quoteState.companyWeb || DEFAULT_COMPANY_INFO.companyWeb;
 
-        // Chứng từ
-        document.getElementById("out-quoteCode").textContent =
-          quoteState.quoteCode || "BG-2026-001";
-        document.getElementById("out-quoteDate").textContent = formatDateVN(
-          quoteState.quoteDate,
-        );
-        document.getElementById("out-validUntil").textContent = addDaysVN(
-          quoteState.quoteDate,
-          quoteState.validDays,
-        );
+            document.getElementById('out-companyName').textContent = companyName;
+            document.getElementById('out-companyAddress').textContent = companyAddress;
+            document.getElementById('out-companyTax').textContent = companyTax;
+            document.getElementById('out-companyPhone').textContent = companyPhone;
+            document.getElementById('out-companyWeb').textContent = companyWeb;
 
-        // Khách hàng & Dự án
-        document.getElementById("out-clientName").textContent =
-          quoteState.clientName || "Quý Khách Hàng";
-        document.getElementById("out-clientContact").textContent =
-          quoteState.clientContact || "---";
-        document.getElementById("out-clientPhone").textContent =
-          quoteState.clientPhone || "---";
+            document.getElementById('out-footer-address').textContent = `${companyName} • ${companyAddress}`;
+            document.getElementById('out-footer-contact').textContent = `Website: qnsoft.vn • Hotline: ${companyPhone}`;
 
-        const emailWrap = document.getElementById("out-clientEmail-wrap");
-        if (quoteState.clientEmail && quoteState.clientEmail.trim()) {
-          emailWrap.classList.remove("hidden");
-          document.getElementById("out-clientEmail").textContent =
-            quoteState.clientEmail.trim();
-        } else {
-          emailWrap.classList.add("hidden");
-        }
+            const bankRow = document.getElementById('out-companyBank-row');
+            if (quoteState.companyBank && quoteState.companyBank.trim()) {
+                bankRow.classList.remove('hidden');
+                document.getElementById('out-companyBank').textContent = quoteState.companyBank.trim();
+            } else {
+                bankRow.classList.add('hidden');
+            }
 
-        const addrWrap = document.getElementById("out-clientAddress-wrap");
-        if (quoteState.clientAddress && quoteState.clientAddress.trim()) {
-          addrWrap.classList.remove("hidden");
-          document.getElementById("out-clientAddress").textContent =
-            quoteState.clientAddress.trim();
-        } else {
-          addrWrap.classList.add("hidden");
-        }
+            document.getElementById('out-staffName').textContent = quoteState.staffName || DEFAULT_COMPANY_INFO.staffName;
 
-        document.getElementById("out-projectName").textContent =
-          quoteState.projectName || "Thiết kế Website Chuyên Nghiệp";
-        document.getElementById("out-timeline").textContent =
-          quoteState.timeline || "Theo thỏa thuận";
+            // Chứng từ
+            document.getElementById('out-quoteCode').textContent = quoteState.quoteCode || 'BG-2026-001';
+            document.getElementById('out-quoteDate').textContent = formatDateVN(quoteState.quoteDate);
+            document.getElementById('out-validUntil').textContent = addDaysVN(quoteState.quoteDate, quoteState.validDays);
 
-        // Bảng hạng mục
-        const tbody = document.getElementById("out-items-tbody");
-        tbody.innerHTML = "";
+            // Khách hàng & Dự án
+            document.getElementById('out-clientName').textContent = quoteState.clientName || 'Quý Khách Hàng';
+            document.getElementById('out-clientContact').textContent = quoteState.clientContact || '---';
+            document.getElementById('out-clientPhone').textContent = quoteState.clientPhone || '---';
 
-        let subtotal = 0;
-        quoteState.items.forEach((item, idx) => {
-          const qty = Number(item.qty) || 0;
-          const price = Number(item.price) || 0;
-          const lineTotal = qty * price;
-          subtotal += lineTotal;
+            const emailWrap = document.getElementById('out-clientEmail-wrap');
+            if (quoteState.clientEmail && quoteState.clientEmail.trim()) {
+                emailWrap.classList.remove('hidden');
+                document.getElementById('out-clientEmail').textContent = quoteState.clientEmail.trim();
+            } else {
+                emailWrap.classList.add('hidden');
+            }
 
-          const tr = document.createElement("tr");
-          tr.className = idx % 2 === 1 ? "bg-slate-50/50" : "bg-white";
-          tr.innerHTML = `
+            const addrWrap = document.getElementById('out-clientAddress-wrap');
+            if (quoteState.clientAddress && quoteState.clientAddress.trim()) {
+                addrWrap.classList.remove('hidden');
+                document.getElementById('out-clientAddress').textContent = quoteState.clientAddress.trim();
+            } else {
+                addrWrap.classList.add('hidden');
+            }
+
+            document.getElementById('out-projectName').textContent = quoteState.projectName || 'Thiết kế Website Chuyên Nghiệp';
+            document.getElementById('out-timeline').textContent = quoteState.timeline || 'Theo thỏa thuận';
+
+            // Bảng hạng mục
+            const tbody = document.getElementById('out-items-tbody');
+            tbody.innerHTML = '';
+
+            let subtotal = 0;
+            quoteState.items.forEach((item, idx) => {
+                const qty = Number(item.qty) || 0;
+                const price = Number(item.price) || 0;
+                const lineTotal = qty * price;
+                subtotal += lineTotal;
+
+                const tr = document.createElement('tr');
+                tr.className = idx % 2 === 1 ? 'bg-slate-50/50' : 'bg-white';
+                tr.innerHTML = `
                     <td class="py-2.5 px-2.5 text-center font-semibold text-slate-600 align-top">${idx + 1}</td>
                     <td class="py-2.5 px-3 align-top">
-                        <p class="font-bold text-qn-slate leading-snug">${escapeHTML(item.name || "Hạng mục dịch vụ")}</p>
-                        ${item.desc ? `<p class="text-[10px] text-slate-500 mt-0.5 leading-relaxed whitespace-pre-line">${escapeHTML(item.desc)}</p>` : ""}
+                        <p class="font-bold text-qn-slate leading-snug">${escapeHTML(item.name || 'Hạng mục dịch vụ')}</p>
+                        ${item.desc ? `<p class="text-[10px] text-slate-500 mt-0.5 leading-relaxed whitespace-pre-line">${escapeHTML(item.desc)}</p>` : ''}
                     </td>
-                    <td class="py-2.5 px-2 text-center text-slate-600 align-top">${escapeHTML(item.unit || "Gói")}</td>
+                    <td class="py-2.5 px-2 text-center text-slate-600 align-top">${escapeHTML(item.unit || 'Gói')}</td>
                     <td class="py-2.5 px-2 text-center font-medium text-slate-700 align-top">${qty}</td>
                     <td class="py-2.5 px-2.5 text-right text-slate-700 align-top whitespace-nowrap">${formatNumberOnly(price)}</td>
                     <td class="py-2.5 px-3 text-right font-bold text-qn-slate align-top whitespace-nowrap">${formatNumberOnly(lineTotal)}</td>
                 `;
-          tbody.appendChild(tr);
-        });
+                tbody.appendChild(tr);
+            });
 
-        if (quoteState.items.length === 0) {
-          tbody.innerHTML = `
+            if (quoteState.items.length === 0) {
+                tbody.innerHTML = `
                     <tr>
                         <td colspan="6" class="py-6 text-center text-slate-400 italic">Chưa có hạng mục báo giá</td>
                     </tr>
                 `;
+            }
+
+            // Tính toán chiết khấu, VAT & tổng cộng
+            let discountAmount = 0;
+            const rawDiscount = Math.max(0, Number(quoteState.discountValue) || 0);
+            if (quoteState.discountType === 'percent') {
+                const pct = Math.min(100, rawDiscount);
+                discountAmount = Math.round((subtotal * pct) / 100);
+                document.getElementById('out-discount-label').textContent = `Ưu đãi / Chiết khấu (${pct}%):`;
+            } else {
+                discountAmount = Math.min(subtotal, rawDiscount);
+                document.getElementById('out-discount-label').textContent = 'Ưu đãi / Chiết khấu:';
+            }
+
+            const discountRow = document.getElementById('out-discount-row');
+            if (discountAmount > 0) {
+                discountRow.classList.remove('hidden');
+            } else {
+                discountRow.classList.add('hidden');
+            }
+
+            const afterDiscount = Math.max(0, subtotal - discountAmount);
+            const vatRate = Number(quoteState.vatRate) || 0;
+            const vatAmount = Math.round((afterDiscount * vatRate) / 100);
+            const grandTotal = afterDiscount + vatAmount;
+
+            document.getElementById('out-subtotal').textContent = formatVND(subtotal);
+            document.getElementById('out-discount').textContent = '- ' + formatVND(discountAmount);
+            document.getElementById('out-vat-label').textContent = `Thuế GTGT (${vatRate}%):`;
+            document.getElementById('out-vat').textContent = formatVND(vatAmount);
+            document.getElementById('out-grandTotal').textContent = formatVND(grandTotal);
+            document.getElementById('out-amountInWords').textContent = numberToVietnameseWords(grandTotal);
+
+            // Điều khoản & ghi chú
+            document.getElementById('out-paymentTerms').textContent = quoteState.paymentTerms || '';
+            document.getElementById('out-notes').textContent = quoteState.notes || '';
         }
 
-        // Tính toán chiết khấu, VAT & tổng cộng
-        let discountAmount = 0;
-        const rawDiscount = Math.max(0, Number(quoteState.discountValue) || 0);
-        if (quoteState.discountType === "percent") {
-          const pct = Math.min(100, rawDiscount);
-          discountAmount = Math.round((subtotal * pct) / 100);
-          document.getElementById("out-discount-label").textContent =
-            `Ưu đãi / Chiết khấu (${pct}%):`;
-        } else {
-          discountAmount = Math.min(subtotal, rawDiscount);
-          document.getElementById("out-discount-label").textContent =
-            "Ưu đãi / Chiết khấu:";
-        }
-
-        const discountRow = document.getElementById("out-discount-row");
-        if (discountAmount > 0) {
-          discountRow.classList.remove("hidden");
-        } else {
-          discountRow.classList.add("hidden");
-        }
-
-        const afterDiscount = Math.max(0, subtotal - discountAmount);
-        const vatRate = Number(quoteState.vatRate) || 0;
-        const vatAmount = Math.round((afterDiscount * vatRate) / 100);
-        const grandTotal = afterDiscount + vatAmount;
-
-        document.getElementById("out-subtotal").textContent =
-          formatVND(subtotal);
-        document.getElementById("out-discount").textContent =
-          "- " + formatVND(discountAmount);
-        document.getElementById("out-vat-label").textContent =
-          `Thuế GTGT (${vatRate}%):`;
-        document.getElementById("out-vat").textContent = formatVND(vatAmount);
-        document.getElementById("out-grandTotal").textContent =
-          formatVND(grandTotal);
-        document.getElementById("out-amountInWords").textContent =
-          numberToVietnameseWords(grandTotal);
-
-        // Điều khoản & ghi chú
-        document.getElementById("out-paymentTerms").textContent =
-          quoteState.paymentTerms || "";
-        document.getElementById("out-notes").textContent =
-          quoteState.notes || "";
-      }
-
-      // =========================================================================
-      // 6. CÁC THAO TÁC TƯƠNG TÁC NGƯỜI DÙNG
-      // =========================================================================
-      function updateItemField(index, field, value) {
-        if (!quoteState.items[index]) return;
-        quoteState.items[index][field] = value;
-        renderPreview();
-        saveState();
-      }
-
-      function addItem() {
-        quoteState.items.push({
-          id: "item-" + Date.now(),
-          name: "Tính năng / Dịch vụ bổ sung",
-          desc: "Mô tả chi tiết phạm vi công việc & tiêu chuẩn kỹ thuật bàn giao.",
-          unit: "Gói",
-          qty: 1,
-          price: 1000000,
-        });
-        renderItemsEditor();
-        renderPreview();
-        saveState();
-        showToast("Đã thêm hạng mục mới");
-      }
-
-      function removeItem(index) {
-        quoteState.items.splice(index, 1);
-        renderItemsEditor();
-        renderPreview();
-        saveState();
-        showToast("Đã xóa hạng mục");
-      }
-
-      function moveItem(index, direction) {
-        const targetIndex = index + direction;
-        if (targetIndex < 0 || targetIndex >= quoteState.items.length) return;
-        const temp = quoteState.items[index];
-        quoteState.items[index] = quoteState.items[targetIndex];
-        quoteState.items[targetIndex] = temp;
-        renderItemsEditor();
-        renderPreview();
-        saveState();
-      }
-
-      function applyPreset(presetKey) {
-        const preset = PRESETS[presetKey];
-        if (!preset) return;
-        const cloned = JSON.parse(JSON.stringify(preset));
-        quoteState = {
-          ...quoteState,
-          ...cloned,
-        };
-        populateEditorFields();
-        renderPreview();
-        saveState();
-
-        const names = {
-          corporate: "Website Doanh nghiệp",
-          landing: "Landing Page Quảng cáo",
-          ecommerce: "Website Bán hàng / TMĐT",
-          portal: "Cổng TTĐT (Bệnh viện / CQNN)",
-        };
-        showToast(`Đã nạp mẫu: ${names[presetKey] || presetKey}`);
-      }
-
-      function regenerateQuoteCode() {
-        quoteState.quoteCode = generateCodeString();
-        document.getElementById("inp-quoteCode").value = quoteState.quoteCode;
-        renderPreview();
-        saveState();
-        showToast(`Đã tạo mã báo giá: ${quoteState.quoteCode}`);
-      }
-
-      function resetToDefault() {
-        localStorage.removeItem(STORAGE_KEY);
-        OLD_STORAGE_KEYS.forEach((k) => localStorage.removeItem(k));
-        quoteState = {
-          ...DEFAULT_COMPANY_INFO,
-          quoteCode: generateCodeString(),
-          quoteDate: getTodayISO(),
-          validDays: 15,
-          clientName: "Công ty TNHH Du Lịch Biển Xanh Quy Nhơn",
-          clientContact: "Anh Nguyễn Văn An - Giám đốc",
-          clientPhone: "0905 123 456",
-          clientEmail: "info@bienxanhquynhon.vn",
-          clientAddress: "P. Quy Nhơn, Gia Lai",
-          ...JSON.parse(JSON.stringify(PRESETS.corporate)),
-        };
-        populateEditorFields();
-        renderPreview();
-        saveState();
-        showToast("Đã khôi phục dữ liệu mặc định QNSOFT");
-      }
-
-      function switchMobileTab(tab) {
-        const editor = document.getElementById("editor-panel");
-        const preview = document.getElementById("preview-wrapper");
-        const btnEditor = document.getElementById("btn-tab-editor");
-        const btnPreview = document.getElementById("btn-tab-preview");
-
-        if (tab === "editor") {
-          editor.classList.remove("hidden");
-          preview.classList.add("hidden");
-          preview.classList.remove("flex");
-          btnEditor.classList.add("bg-white", "text-qn-slate", "shadow-sm");
-          btnEditor.classList.remove("text-slate-600");
-          btnPreview.classList.remove("bg-white", "text-qn-slate", "shadow-sm");
-          btnPreview.classList.add("text-slate-600");
-        } else {
-          editor.classList.add("hidden");
-          preview.classList.remove("hidden");
-          preview.classList.add("flex");
-          btnPreview.classList.add("bg-white", "text-qn-slate", "shadow-sm");
-          btnPreview.classList.remove("text-slate-600");
-          btnEditor.classList.remove("bg-white", "text-qn-slate", "shadow-sm");
-          btnEditor.classList.add("text-slate-600");
-        }
-      }
-
-      // Gắn sự kiện lắng nghe thời gian thực cho toàn bộ input
-      function bindInputEvents() {
-        const fieldMap = [
-          ["inp-companyName", "companyName"],
-          ["inp-companyAddress", "companyAddress"],
-          ["inp-companyTax", "companyTax"],
-          ["inp-companyPhone", "companyPhone"],
-          ["inp-companyWeb", "companyWeb"],
-          ["inp-companyBank", "companyBank"],
-          ["inp-staffName", "staffName"],
-          ["inp-quoteCode", "quoteCode"],
-          ["inp-quoteDate", "quoteDate"],
-          ["inp-validDays", "validDays"],
-          ["inp-clientName", "clientName"],
-          ["inp-clientContact", "clientContact"],
-          ["inp-clientPhone", "clientPhone"],
-          ["inp-clientEmail", "clientEmail"],
-          ["inp-clientAddress", "clientAddress"],
-          ["inp-projectName", "projectName"],
-          ["inp-timeline", "timeline"],
-          ["inp-discountType", "discountType"],
-          ["inp-discountValue", "discountValue"],
-          ["inp-vatRate", "vatRate"],
-          ["inp-paymentTerms", "paymentTerms"],
-          ["inp-notes", "notes"],
-        ];
-
-        fieldMap.forEach(([elId, stateKey]) => {
-          const el = document.getElementById(elId);
-          if (!el) return;
-          const eventName =
-            el.tagName === "SELECT" || el.type === "date" ? "change" : "input";
-          el.addEventListener(eventName, (e) => {
-            quoteState[stateKey] = e.target.value;
+        // =========================================================================
+        // 6. CÁC THAO TÁC TƯƠNG TÁC NGƯỜI DÙNG
+        // =========================================================================
+        function updateItemField(index, field, value) {
+            if (!quoteState.items[index]) return;
+            quoteState.items[index][field] = value;
             renderPreview();
             saveState();
-          });
-        });
-      }
+        }
 
-      // Khởi chạy ứng dụng khi tải trang
-      window.addEventListener("DOMContentLoaded", () => {
-        loadState();
-        populateEditorFields();
-        bindInputEvents();
-        renderPreview();
-      });
+        function addItem() {
+            quoteState.items.push({
+                id: 'item-' + Date.now(),
+                name: 'Tính năng / Dịch vụ bổ sung',
+                desc: 'Mô tả chi tiết phạm vi công việc & tiêu chuẩn kỹ thuật bàn giao.',
+                unit: 'Gói',
+                qty: 1,
+                price: 1000000
+            });
+            renderItemsEditor();
+            renderPreview();
+            saveState();
+            showToast('Đã thêm hạng mục mới');
+        }
+
+        function removeItem(index) {
+            quoteState.items.splice(index, 1);
+            renderItemsEditor();
+            renderPreview();
+            saveState();
+            showToast('Đã xóa hạng mục');
+        }
+
+        function moveItem(index, direction) {
+            const targetIndex = index + direction;
+            if (targetIndex < 0 || targetIndex >= quoteState.items.length) return;
+            const temp = quoteState.items[index];
+            quoteState.items[index] = quoteState.items[targetIndex];
+            quoteState.items[targetIndex] = temp;
+            renderItemsEditor();
+            renderPreview();
+            saveState();
+        }
+
+        function applyPreset(presetKey) {
+            const preset = PRESETS[presetKey];
+            if (!preset) return;
+            const cloned = JSON.parse(JSON.stringify(preset));
+            quoteState = {
+                ...quoteState,
+                ...cloned
+            };
+            populateEditorFields();
+            renderPreview();
+            saveState();
+
+            const names = {
+                corporate: 'Website Doanh nghiệp',
+                landing: 'Landing Page Quảng cáo',
+                ecommerce: 'Website Bán hàng / TMĐT',
+                portal: 'Cổng TTĐT (Bệnh viện / CQNN)'
+            };
+            showToast(`Đã nạp mẫu: ${names[presetKey] || presetKey}`);
+        }
+
+        function regenerateQuoteCode() {
+            quoteState.quoteCode = generateCodeString();
+            document.getElementById('inp-quoteCode').value = quoteState.quoteCode;
+            renderPreview();
+            saveState();
+            showToast(`Đã tạo mã báo giá: ${quoteState.quoteCode}`);
+        }
+
+        function resetToDefault() {
+            localStorage.removeItem(STORAGE_KEY);
+            OLD_STORAGE_KEYS.forEach(k => localStorage.removeItem(k));
+            quoteState = {
+                ...DEFAULT_COMPANY_INFO,
+                quoteCode: generateCodeString(),
+                quoteDate: getTodayISO(),
+                validDays: 15,
+                clientName: 'Công ty TNHH Du Lịch Biển Xanh Quy Nhơn',
+                clientContact: 'Anh Nguyễn Văn An - Giám đốc',
+                clientPhone: '0905 123 456',
+                clientEmail: 'info@bienxanhquynhon.vn',
+                clientAddress: 'P. Quy Nhơn, Gia Lai',
+                ...JSON.parse(JSON.stringify(PRESETS.corporate))
+            };
+            populateEditorFields();
+            renderPreview();
+            saveState();
+            showToast('Đã khôi phục dữ liệu mặc định QNSOFT');
+        }
+
+        function switchMobileTab(tab) {
+            const editor = document.getElementById('editor-panel');
+            const preview = document.getElementById('preview-wrapper');
+            const btnEditor = document.getElementById('btn-tab-editor');
+            const btnPreview = document.getElementById('btn-tab-preview');
+
+            if (tab === 'editor') {
+                editor.classList.remove('hidden');
+                preview.classList.add('hidden');
+                preview.classList.remove('flex');
+                btnEditor.classList.add('bg-white', 'text-qn-slate', 'shadow-sm');
+                btnEditor.classList.remove('text-slate-600');
+                btnPreview.classList.remove('bg-white', 'text-qn-slate', 'shadow-sm');
+                btnPreview.classList.add('text-slate-600');
+            } else {
+                editor.classList.add('hidden');
+                preview.classList.remove('hidden');
+                preview.classList.add('flex');
+                btnPreview.classList.add('bg-white', 'text-qn-slate', 'shadow-sm');
+                btnPreview.classList.remove('text-slate-600');
+                btnEditor.classList.remove('bg-white', 'text-qn-slate', 'shadow-sm');
+                btnEditor.classList.add('text-slate-600');
+            }
+        }
+
+        // Gắn sự kiện lắng nghe thời gian thực cho toàn bộ input
+        function bindInputEvents() {
+            const fieldMap = [
+                ['inp-companyName', 'companyName'],
+                ['inp-companyAddress', 'companyAddress'],
+                ['inp-companyTax', 'companyTax'],
+                ['inp-companyPhone', 'companyPhone'],
+                ['inp-companyWeb', 'companyWeb'],
+                ['inp-companyBank', 'companyBank'],
+                ['inp-staffName', 'staffName'],
+                ['inp-quoteCode', 'quoteCode'],
+                ['inp-quoteDate', 'quoteDate'],
+                ['inp-validDays', 'validDays'],
+                ['inp-clientName', 'clientName'],
+                ['inp-clientContact', 'clientContact'],
+                ['inp-clientPhone', 'clientPhone'],
+                ['inp-clientEmail', 'clientEmail'],
+                ['inp-clientAddress', 'clientAddress'],
+                ['inp-projectName', 'projectName'],
+                ['inp-timeline', 'timeline'],
+                ['inp-discountType', 'discountType'],
+                ['inp-discountValue', 'discountValue'],
+                ['inp-vatRate', 'vatRate'],
+                ['inp-paymentTerms', 'paymentTerms'],
+                ['inp-notes', 'notes']
+            ];
+
+            fieldMap.forEach(([elId, stateKey]) => {
+                const el = document.getElementById(elId);
+                if (!el) return;
+                const eventName = el.tagName === 'SELECT' || el.type === 'date' ? 'change' : 'input';
+                el.addEventListener(eventName, (e) => {
+                    quoteState[stateKey] = e.target.value;
+                    renderPreview();
+                    saveState();
+                });
+            });
+        }
+
+        // Khởi chạy ứng dụng khi tải trang
+        window.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            populateEditorFields();
+            bindInputEvents();
+            renderPreview();
+        });
     </script>
-  </body>
+</body>
 </html>
